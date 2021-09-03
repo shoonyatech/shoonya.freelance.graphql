@@ -1,0 +1,26 @@
+{
+  "name": "shoonya.freelancer.graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-core": "^3.3.0",
+    "apollo-server-express": "^2.25.2",
+    "express": "^4.17.1",
+    "graphql": "^14.7.0",
+    "graphql-subscriptions": "^1.1.0",
+    "http": "0.0.1-security",
+    "mongoose": "^5.13.8",
+    "subscriptions-transport-ws": "^0.9.16"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "type": "module"
+}

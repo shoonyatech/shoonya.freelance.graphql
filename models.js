@@ -6,7 +6,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  profilePicUrl: {
+  title: {
     type: String,
     required: true,
   },

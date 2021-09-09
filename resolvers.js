@@ -2,32 +2,41 @@ import { User } from "./models.js";
 
 const resolvers = {
   Query: {
-    users(parent, args, context, info) {
-      return User.find()
-        .then((restaurant) => {
-          return restaurant.map((r) => ({ ...r._doc }));
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    user(_, args) {
+      const { _id } = args
+      return User.findById({ 
+        _id 
+      })
     },
   },
   Mutation: {
-    addUser(parent, args, context, info) {
-      const { name, profilePicUrl } = args;
+    async addUser(parent, args, context, info) {
+      const { name,_id } = args;
       const userObj = new User({
         name,
-        profilePicUrl,
+        _id
       });
-      return userObj
-        .save()
-        .then((result) => {
-          return { ...result._doc };
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      try {
+        const result = await userObj
+          .save();
+        return { ...result._doc };
+      } catch (err) {
+        console.error(err);
+      }
     },
+    updateUserNameTitle : async (_,{ name,title }) => {
+      const user = User.updateOne({
+        name: {name },
+        title: { title }
+      })
+      try {
+        const result = await user
+          .save();
+        return { ...result._doc };
+      } catch (err) {
+        console.error(err);
+      }
+    }
   },
 };
 

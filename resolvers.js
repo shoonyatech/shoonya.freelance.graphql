@@ -24,18 +24,15 @@ const resolvers = {
         console.error(err);
       }
     },
-    updateUserNameTitle : async (_,{ name,title }) => {
-      const user = User.updateOne({
-        name: {name },
-        title: { title }
-      })
-      try {
-        const result = await user
-          .save();
-        return { ...result._doc };
-      } catch (err) {
-        console.error(err);
-      }
+    updateUserNameTitle(_, args ) {
+      const { _id, name , title } = args  
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          name,
+          title
+        }}
+        )
     }
   },
 };

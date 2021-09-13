@@ -52,6 +52,15 @@ const resolvers = {
         }}
       )
     },
+    updateUserContact (_,args) {
+      const { _id, contact } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          contact
+        }}
+      )
+    },
 
   }
 }

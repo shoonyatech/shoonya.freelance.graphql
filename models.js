@@ -3,20 +3,24 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   name: {
-    type: String,
-    required: true,
+    type : String,
+    required : true,
   },
   title: {
-    type: String,
-    required: true,
+    type : String,
+    required : true,
   },
   picture: {
-    type: String,
-    required: true,
+    type : String,
+    required : true,
   },
   bio: {
-    type: String,
-    required: true,
+    type : String,
+    required : true,
+  },
+  contact: {
+    type : Object,
+    required : true
   }
 });
 

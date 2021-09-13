@@ -36,14 +36,24 @@ const resolvers = {
     },
     updateUserPicture(_,args) {
       const { _id, picture } = args  
-    return User.updateOne(
-      { _id },
-      { $set:  {
-        picture
-      }}
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          picture
+        }}
+        )
+    },
+    updateUserBio (_,args) {
+      const { _id, bio } = args  
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          bio
+        }}
       )
-  },
-}
+    },
+
+  }
 }
 
 export default resolvers;

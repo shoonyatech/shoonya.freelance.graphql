@@ -13,6 +13,10 @@ const UserSchema = new Schema({
   picture: {
     type: String,
     required: true,
+  },
+  bio: {
+    type: String,
+    required: true,
   }
 });
 

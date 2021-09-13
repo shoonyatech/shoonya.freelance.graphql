@@ -33,8 +33,17 @@ const resolvers = {
           title
         }}
         )
-    }
+    },
+    updateUserPicture(_,args) {
+      const { _id, picture } = args  
+    return User.updateOne(
+      { _id },
+      { $set:  {
+        picture
+      }}
+      )
   },
-};
+}
+}
 
 export default resolvers;

@@ -5,6 +5,7 @@ const typeDefs = gql`
     _id: ID!
     name: String
     title :String
+    picture: String 
   }
 
   type Query {
@@ -14,6 +15,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(name: String, _id :String): User
     updateUserNameTitle( _id: ID!,name: String,title: String): User
+    updateUserPicture ( _id: ID!, picture:String ): User
   }
 `;
 

@@ -8,9 +8,29 @@ const typeDefs = gql`
     picture: String 
     bio: String
     contact: Contact
+    professionalExperience: [ProfessionalExperience]
   }
 
+  type ProfessionalExperience {
+    company : String
+    jobTitle :  String
+    location : String
+    startYear : Int
+    endYear : Int
+    description : String
+    currentJob : Boolean 
+  }
   
+  input ProfessionalExperienceInput {
+    company : String
+    jobTitle :  String  
+    startYear :  Int
+    endYear : Int
+    location : String
+    description : String
+    currentJob : Boolean
+  }
+
   type Contact {
     location : String 
     phone : String
@@ -39,6 +59,7 @@ const typeDefs = gql`
     updateUserPicture ( _id: ID!, picture:String ): User
     updateUserBio ( _id: ID!, bio:String ) : User 
     updateUserContact ( _id: ID!, contact : ContactInput ) : User 
+    updateUserProfessionalExperience ( _id: ID!, professionalExperience : [ProfessionalExperienceInput] ) : User 
   }
 `;
 

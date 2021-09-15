@@ -62,6 +62,16 @@ const resolvers = {
       )
     },
 
+
+    updateUserProfessionalExperience (_,args) {
+      const { _id, professionalExperience } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          professionalExperience 
+        }}
+      )
+    },
   }
 }
 

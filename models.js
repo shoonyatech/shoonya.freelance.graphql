@@ -21,7 +21,12 @@ const UserSchema = new Schema({
   contact: {
     type : Object,
     required : true
+  },
+  professionalExperience : {
+    type: Array,
+    required: true
   }
+
 });
 
 const User = mongoose.model("User", UserSchema);

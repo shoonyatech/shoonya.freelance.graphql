@@ -25,6 +25,10 @@ const UserSchema = new Schema({
   professionalExperience : {
     type: Array,
     required: true
+  },
+  skills : {
+    type: Array,
+    required: true
   }
 
 });

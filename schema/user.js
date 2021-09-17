@@ -9,6 +9,17 @@ const typeDefs = gql`
     bio: String
     contact: Contact
     professionalExperience: [ProfessionalExperience]
+    skills : [Skills]
+  }
+
+  type Skills {
+    name : String 
+    scale : Int
+  }
+
+  input SkillsInput {
+    name : String 
+    scale : Int
   }
 
   type ProfessionalExperience {
@@ -60,6 +71,7 @@ const typeDefs = gql`
     updateUserBio ( _id: ID!, bio:String ) : User 
     updateUserContact ( _id: ID!, contact : ContactInput ) : User 
     updateUserProfessionalExperience ( _id: ID!, professionalExperience : [ProfessionalExperienceInput] ) : User 
+    updateUserSkills ( _id: ID!, skills : [SkillsInput] ) : User 
   }
 `;
 

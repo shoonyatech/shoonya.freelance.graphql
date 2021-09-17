@@ -72,6 +72,16 @@ const resolvers = {
         }}
       )
     },
+
+    updateUserSkills (_,args) {
+      const { _id, skills } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          skills
+        }}
+      )
+    },
   }
 }
 

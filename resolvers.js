@@ -82,6 +82,18 @@ const resolvers = {
         }}
       )
     },
+
+
+    updateUserEducation (_,args) {
+      const { _id, education } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          education
+        }}
+      )
+    },
+
   }
 }
 

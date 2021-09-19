@@ -29,8 +29,11 @@ const UserSchema = new Schema({
   skills : {
     type: Array,
     required: true
+  },
+  education : {
+    type: Array,
+    required: true
   }
-
 });
 
 const User = mongoose.model("User", UserSchema);

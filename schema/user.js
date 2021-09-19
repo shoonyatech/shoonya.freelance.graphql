@@ -10,6 +10,21 @@ const typeDefs = gql`
     contact: Contact
     professionalExperience: [ProfessionalExperience]
     skills : [Skills]
+    education: [Education]
+  }
+
+  type Education {
+    degree: String
+    school: String
+    startYear: Int
+    endYear: Int
+  }
+
+  input EducationInput {
+    degree: String
+    school: String
+    startYear: Int
+    endYear: Int
   }
 
   type Skills {
@@ -72,6 +87,7 @@ const typeDefs = gql`
     updateUserContact ( _id: ID!, contact : ContactInput ) : User 
     updateUserProfessionalExperience ( _id: ID!, professionalExperience : [ProfessionalExperienceInput] ) : User 
     updateUserSkills ( _id: ID!, skills : [SkillsInput] ) : User 
+    updateUserEducation  ( _id: ID!, education : [EducationInput] ) : User 
   }
 `;
 

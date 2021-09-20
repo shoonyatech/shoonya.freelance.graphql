@@ -11,6 +11,21 @@ const typeDefs = gql`
     professionalExperience: [ProfessionalExperience]
     skills : [Skills]
     education: [Education]
+    developerCommunityInvolement: [DeveloperCommunityInvolement]
+    language: String
+    hobbies: String
+    sports: String
+    countriesICanWork: String
+  }
+
+  type DeveloperCommunityInvolement {
+    title: String 
+    description : String
+  }
+
+  input DeveloperCommunityInvolementInput {
+    title: String 
+    description : String
   }
 
   type Education {
@@ -88,6 +103,11 @@ const typeDefs = gql`
     updateUserProfessionalExperience ( _id: ID!, professionalExperience : [ProfessionalExperienceInput] ) : User 
     updateUserSkills ( _id: ID!, skills : [SkillsInput] ) : User 
     updateUserEducation  ( _id: ID!, education : [EducationInput] ) : User 
+    updateUserDeveloperCommunityInvolement  ( _id: ID!, developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
+    updateUserLanguage  ( _id: ID!, language : String ) : User 
+    updateUserHobbies  ( _id: ID!, hobbies : String ) : User 
+    updateUserSports  ( _id: ID!, sports : String ) : User 
+    updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : String ) : User 
   }
 `;
 

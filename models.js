@@ -33,6 +33,26 @@ const UserSchema = new Schema({
   education : {
     type: Array,
     required: true
+  },
+  developerCommunityInvolement : {
+    type: Array,
+    required: true
+  },
+  language : {
+    type: Object,
+    required: true
+  },
+  hobbies : {
+    type: Object,
+    required: true
+  },
+  sports : {
+    type : Object,
+    required: true
+  },
+  countriesICanWork : {
+    type : Object,
+    required: true
   }
 });
 

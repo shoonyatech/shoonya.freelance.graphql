@@ -9,6 +9,8 @@ const resolvers = {
       })
     },
   },
+  
+  
   Mutation: {
     async addUser(parent, args, context, info) {
       const { name,_id } = args;
@@ -90,6 +92,55 @@ const resolvers = {
         { _id },
         { $set:  {
           education
+        }}
+      )
+    },
+
+    updateUserDeveloperCommunityInvolement (_,args) {
+      const { _id, developerCommunityInvolement } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          developerCommunityInvolement
+        }}
+      )
+    },
+
+    updateUserLanguage (_,args) {
+      const { _id, language } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          language
+        }}
+      )
+    },
+    updateUserHobbies (_,args) {
+      const { _id, hobbies } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          hobbies
+        }}
+      )
+    },
+
+    updateUserSports (_,args) {
+      const { _id, sports } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          sports
+        }}
+      )
+    },
+
+    updateUserCountriesICanWork (_,args) {
+      const { _id, countriesICanWork } = args 
+      return User.updateOne(
+        { _id },
+        { $set:  {
+          countriesICanWork
         }}
       )
     },

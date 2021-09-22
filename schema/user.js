@@ -12,7 +12,7 @@ const typeDefs = gql`
     skills : [Skills]
     education: [Education]
     developerCommunityInvolement: [DeveloperCommunityInvolement]
-    language: String
+    languages: [String]
     hobbies: String
     sports: String
     countriesICanWork: String
@@ -104,7 +104,7 @@ const typeDefs = gql`
     updateUserSkills ( _id: ID!, skills : [SkillsInput] ) : User 
     updateUserEducation  ( _id: ID!, education : [EducationInput] ) : User 
     updateUserDeveloperCommunityInvolement  ( _id: ID!, developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
-    updateUserLanguage  ( _id: ID!, language : String ) : User 
+    updateUserLanguages  ( _id: ID!, languages : [String] ) : User 
     updateUserHobbies  ( _id: ID!, hobbies : String ) : User 
     updateUserSports  ( _id: ID!, sports : String ) : User 
     updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : String ) : User 

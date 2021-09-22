@@ -38,8 +38,8 @@ const UserSchema = new Schema({
     type: Array,
     required: true
   },
-  language : {
-    type: Object,
+  languages : {
+    type: Array,
     required: true
   },
   hobbies : {

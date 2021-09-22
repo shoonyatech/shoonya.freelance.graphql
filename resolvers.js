@@ -106,12 +106,12 @@ const resolvers = {
       )
     },
 
-    updateUserLanguage (_,args) {
-      const { _id, language } = args 
+    updateUserLanguages (_,args) {
+      const { _id, languages } = args 
       return User.updateOne(
         { _id },
         { $set:  {
-          language
+          languages
         }}
       )
     },

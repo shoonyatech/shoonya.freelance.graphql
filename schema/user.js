@@ -18,6 +18,10 @@ const typeDefs = gql`
     countriesICanWork: [String]
   }
 
+  type CountryDetails {
+    name: String
+  }
+  
   type DeveloperCommunityInvolement {
     title: String 
     description : String
@@ -92,6 +96,7 @@ const typeDefs = gql`
 
   type Query {
     user(_id : String): User
+    countries: [CountryDetails]
   }
 
   type Mutation {

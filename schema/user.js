@@ -100,7 +100,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(name: String, _id :String): User
+    addUser(name: String, _id :ID!): User
     updateUserNameTitle( _id: ID!,name: String,title: String): User
     updateUserPicture ( _id: ID!, picture:String ): User
     updateUserBio ( _id: ID!, bio:String ) : User 

@@ -13,7 +13,6 @@ const resolvers = {
             }
     },
     countries(){
-      console.log(countries) // returns proper data 
       return  countries ;
     }
   },

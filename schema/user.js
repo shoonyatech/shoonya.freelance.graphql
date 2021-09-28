@@ -14,7 +14,7 @@ const typeDefs = gql`
     developerCommunityInvolement: [DeveloperCommunityInvolement]
     languages: [String]
     hobbies: String
-    sports: String
+    sports: [String]
     countriesICanWork: [String]
   }
 
@@ -111,7 +111,7 @@ const typeDefs = gql`
     updateUserDeveloperCommunityInvolement  ( _id: ID!, developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
     updateUserLanguages  ( _id: ID!, languages : [String] ) : User 
     updateUserHobbies  ( _id: ID!, hobbies : String ) : User 
-    updateUserSports  ( _id: ID!, sports : String ) : User 
+    updateUserSports  ( _id: ID!, sports : [String] ) : User 
     updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : [String] ) : User 
   }
 `;

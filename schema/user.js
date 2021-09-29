@@ -64,6 +64,7 @@ const typeDefs = gql`
     endYear : Int
     description : String
     currentJob : Boolean 
+    techStack : [String]
   }
   
   input ProfessionalExperienceInput {
@@ -74,6 +75,7 @@ const typeDefs = gql`
     location : String
     description : String
     currentJob : Boolean
+    techStack : [String]
   }
 
   type Contact {

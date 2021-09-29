@@ -13,7 +13,7 @@ const typeDefs = gql`
     education: [Education]
     developerCommunityInvolement: [DeveloperCommunityInvolement]
     languages: [String]
-    hobbies: String
+    hobbies: [String]
     sports: [String]
     countriesICanWork: [String]
   }
@@ -97,7 +97,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(_id : String): User
+    user(_id : ID!): User
     countries: [CountryDetails]
   }
 
@@ -112,7 +112,7 @@ const typeDefs = gql`
     updateUserEducation  ( _id: ID!, education : [EducationInput] ) : User 
     updateUserDeveloperCommunityInvolement  ( _id: ID!, developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
     updateUserLanguages  ( _id: ID!, languages : [String] ) : User 
-    updateUserHobbies  ( _id: ID!, hobbies : String ) : User 
+    updateUserHobbies  ( _id: ID!, hobbies : [String] ) : User 
     updateUserSports  ( _id: ID!, sports : [String] ) : User 
     updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : [String] ) : User 
   }

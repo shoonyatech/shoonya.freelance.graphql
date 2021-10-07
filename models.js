@@ -41,7 +41,7 @@ const UserSchema = new Schema({
   },
   countriesICanWork : {
     type : Array,
-  }
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

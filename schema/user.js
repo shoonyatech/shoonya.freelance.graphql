@@ -99,6 +99,16 @@ const typeDefs = gql`
   type Query {
     user(_id : ID!): User
     countries: [CountryDetails]
+    freelancer: [Freelancer]
+  }
+
+  type Freelancer {
+    name: String
+    skills: [String]
+    experience: Int
+    rate: Int
+    currency: String
+    image: String
   }
 
   type Mutation {

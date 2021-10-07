@@ -1,5 +1,6 @@
 import { User } from "./models.js";
 import countries from "./data/countries.js";
+import freelancer from "./data/freelancer.js";
 
 const resolvers = {
   Query: {
@@ -14,6 +15,10 @@ const resolvers = {
     },
     countries(){
       return  countries ;
+    },
+
+    freelancer(){
+      return freelancer;
     }
   },
 

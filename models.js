@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -44,6 +45,24 @@ const UserSchema = new Schema({
   }
 });
 
-const User = mongoose.model("User", UserSchema);
+const ProjectSchema = new Schema({
+  title: {
+    type: String,
+  },
+  owner: {
+    type:  mongoose.ObjectId,
+  },
+  scope: {
+    type: Object
+  },
+  budget: {
+    type: Object
+  },
+  isPublished: {
+    type: Boolean
+  }
+})
 
-export { User };
+const User = mongoose.model("User", UserSchema);
+const Project = mongoose.model("Project", ProjectSchema)
+export { User,Project };

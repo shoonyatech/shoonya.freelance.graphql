@@ -1,6 +1,6 @@
 const countries = [ 
-    {name: 'Canada'}, 
-    {name: 'India'}, 
+    {name: 'Canada',currency: 'CAD'}, 
+    {name: 'India', currency: '₹'}, 
 ]
 
 export default countries;

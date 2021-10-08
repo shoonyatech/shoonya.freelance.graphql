@@ -1,6 +1,7 @@
-import { User } from "./models.js";
+import { User,Project } from "./models.js";
 import countries from "./data/countries.js";
 import freelancers from "./data/freelancer.js";
+import project from "./data/project.js"
 
 const resolvers = {
   Query: {
@@ -11,7 +12,7 @@ const resolvers = {
         return User.findById({ 
           _id 
         })
-            }
+      }
     },
     countries(){
       return  countries ;
@@ -19,12 +20,12 @@ const resolvers = {
 
     freelancers(){
       return freelancers;
+    },
+    project() {
+      return Project.find({})
     }
   },
 
-
-  
-  
   Mutation: {
     async addUser(parent, args, context, info) {
       const { name,_id } = args;
@@ -40,6 +41,25 @@ const resolvers = {
         console.error(err);
       }
     },
+    
+    async addProject(_, args) {
+      const { owner, title, scope, budget} = args;
+      const userObj = new Project({
+        owner,
+        title,
+        scope,
+        budget,
+        isPublished: false
+      });
+      try {
+        const result = await userObj
+          .save();
+        return { ...result._doc };
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     updateUserNameTitle(_, args ) {
       const { _id, name , title } = args  
       return User.updateOne(

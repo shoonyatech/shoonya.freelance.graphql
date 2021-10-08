@@ -96,21 +96,6 @@ const typeDefs = gql`
     twitter : String
   }
 
-  type Query {
-    user(_id : ID!): User
-    countries: [CountryDetails]
-    freelancer: [Freelancer]
-  }
-
-  type Freelancer {
-    name: String
-    skills: [String]
-    experience: Int
-    rate: Int
-    currency: String
-    image: String
-  }
-
   type Mutation {
     addUser(name: String, _id :ID!): User
     updateUserNameTitle( _id: ID!,name: String,title: String): User

@@ -4,8 +4,8 @@ const typeDefs = gql`
     type Freelancer {
         name: String
         skills: [String]
-        experience: Int
-        rate: Int
+        expInYears: Int
+        hourlyRate: Int
         currency: String
         image: String
     }

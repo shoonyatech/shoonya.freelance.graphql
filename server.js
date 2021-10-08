@@ -3,7 +3,7 @@ import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import express from "express";
 import http from "http";
 import mongoose from "mongoose";
-import typeDefs from "./schema/user.js";
+import typeDefs from "./schema/index.js";
 import resolvers from "./resolvers.js";
 
 async function startApolloServer(typeDefs, resolvers) {

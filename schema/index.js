@@ -5,7 +5,7 @@ const QueryAndMutation = `
     type Query {
         user(_id : ID!): User
         countries: [CountryDetails]
-        project: [Project]
+        projects: [Project]
     }
     type Mutation {
         addUser(name: String, _id :ID!): User

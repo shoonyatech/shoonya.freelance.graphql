@@ -1,7 +1,6 @@
 import { User,Project } from "./models.js";
 import countries from "./data/countries.js";
 import freelancers from "./data/freelancer.js";
-import project from "./data/project.js"
 
 const resolvers = {
   Query: {
@@ -13,6 +12,13 @@ const resolvers = {
           _id 
         })
       }
+    },
+
+    project(_, args) {
+      const { _id,filter } = args
+        return Project.findById({ 
+          _id 
+        })
     },
 
     countries(){

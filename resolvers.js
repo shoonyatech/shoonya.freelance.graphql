@@ -14,14 +14,13 @@ const resolvers = {
         })
       }
     },
+
     countries(){
       return  countries ;
     },
 
-    freelancers(){
-      return freelancers;
-    },
-    project() {
+
+    projects() {
       return Project.find({})
     }
   },

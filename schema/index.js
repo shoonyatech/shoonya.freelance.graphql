@@ -3,9 +3,10 @@ import Project from './project.js';
 
 const QueryAndMutation = `
     type Query {
-        user(_id : ID!): User
+        user(_id: ID!): User
         countries: [CountryDetails]
         projects: [Project]
+        project(_id: ID! ): Project
     }
     type Mutation {
         addUser(name: String, _id :ID!): User

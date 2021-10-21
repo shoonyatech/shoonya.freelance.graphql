@@ -184,6 +184,16 @@ const resolvers = {
       )
     },
 
+     updateProjectTitle(_, args ) {
+      const { _id, title } = args  
+      return Project.findOneAndUpdate(
+        { _id },
+        { $set:  {
+          title
+        }}
+        )
+    },
+
   }
 }
 

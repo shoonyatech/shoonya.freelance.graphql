@@ -49,6 +49,9 @@ const ProjectSchema = new Schema({
   title: {
     type: String,
   },
+  description: {
+    type: String,
+  },
   owner: {
     type:  mongoose.ObjectId,
   },

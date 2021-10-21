@@ -4,7 +4,8 @@ const typeDefs = gql`
   type Project {
     _id: ID!
     owner: ID
-    title :String
+    title : String
+    description: String
     skills: [String]
     scope: Scope
     budget: Budget

@@ -67,7 +67,7 @@ const resolvers = {
 
     updateUserNameTitle(_, args ) {
       const { _id, name , title } = args  
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           name,
@@ -77,7 +77,7 @@ const resolvers = {
     },
     updateUserPicture(_,args) {
       const { _id, picture } = args  
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           picture
@@ -86,7 +86,7 @@ const resolvers = {
     },
     updateUserBio (_,args) {
       const { _id, bio } = args  
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           bio
@@ -95,7 +95,7 @@ const resolvers = {
     },
     updateUserContact (_,args) {
       const { _id, contact } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           contact
@@ -106,7 +106,7 @@ const resolvers = {
 
     updateUserProfessionalExperience (_,args) {
       const { _id, professionalExperience } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           professionalExperience 
@@ -116,7 +116,7 @@ const resolvers = {
 
     updateUserSkills (_,args) {
       const { _id, skills } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           skills
@@ -127,7 +127,7 @@ const resolvers = {
 
     updateUserEducation (_,args) {
       const { _id, education } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           education
@@ -137,7 +137,7 @@ const resolvers = {
 
     updateUserDeveloperCommunityInvolement (_,args) {
       const { _id, developerCommunityInvolement } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           developerCommunityInvolement
@@ -147,7 +147,7 @@ const resolvers = {
 
     updateUserLanguages (_,args) {
       const { _id, languages } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           languages
@@ -156,7 +156,7 @@ const resolvers = {
     },
     updateUserHobbies (_,args) {
       const { _id, hobbies } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           hobbies
@@ -166,7 +166,7 @@ const resolvers = {
 
     updateUserSports (_,args) {
       const { _id, sports } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           sports
@@ -176,7 +176,7 @@ const resolvers = {
 
     updateUserCountriesICanWork (_,args) {
       const { _id, countriesICanWork } = args 
-      return User.updateOne(
+      return User.findOneAndUpdate(
         { _id },
         { $set:  {
           countriesICanWork

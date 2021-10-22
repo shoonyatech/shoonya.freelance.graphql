@@ -26,6 +26,8 @@ const QueryAndMutation = `
         addProject(owner: ID,title: String, scope: ScopeInput, budget: BudgetInput ): Project
         updateProjectTitle( _id: ID!,title: String): Project
         updateProjectDescription( _id: ID!,description: String): Project
+        updateProjectScope( _id: ID!,scope: ScopeInput): Project
+        updateProjectBudget( _id: ID!,budget: BudgetInput): Project
     }
 `;
 

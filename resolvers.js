@@ -204,6 +204,26 @@ const resolvers = {
         )
     },
 
+    updateProjectScope(_, args ) {
+      const { _id, scope } = args  
+      return Project.findOneAndUpdate(
+        { _id },
+        { $set:  {
+          scope
+        }}
+        )
+    },
+
+    updateProjectBudget(_, args ) {
+      const { _id, budget } = args  
+      return Project.findOneAndUpdate(
+        { _id },
+        { $set:  {
+          budget
+        }}
+        )
+    },
+
   }
 }
 

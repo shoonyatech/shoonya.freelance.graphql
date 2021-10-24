@@ -28,6 +28,8 @@ const QueryAndMutation = `
         updateProjectDescription( _id: ID!,description: String): Project
         updateProjectScope( _id: ID!,scope: ScopeInput): Project
         updateProjectBudget( _id: ID!,budget: BudgetInput): Project
+        updateProjectSkills( _id: ID!,skills: [String]): Project
+
     }
 `;
 

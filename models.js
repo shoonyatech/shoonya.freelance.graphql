@@ -61,6 +61,9 @@ const ProjectSchema = new Schema({
   budget: {
     type: Object
   },
+  skills : {
+    type: Array,
+  },
   isPublished: {
     type: Boolean
   }

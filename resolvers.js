@@ -224,6 +224,16 @@ const resolvers = {
         )
     },
 
+    updateProjectSkills(_, args ) {
+      const { _id, skills } = args  
+      return Project.findOneAndUpdate(
+        { _id },
+        { $set:  {
+          skills
+        }}
+        )
+    },
+
   }
 }
 

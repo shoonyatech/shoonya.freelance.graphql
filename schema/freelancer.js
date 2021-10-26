@@ -5,9 +5,12 @@ const typeDefs = gql`
         name: String
         skills: [String]
         expInYears: Int
-        hourlyRate: Int
-        currency: String
+        hourlyRate: Money
         image: String
+    }
+    type Money {
+        amount: Int
+        currency: String
     }
 `;
 

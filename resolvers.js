@@ -1,6 +1,5 @@
 import { User } from "./models.js";
 import countries from "./data/countries.js";
-import freelancers from "./data/freelancer.js";
 
 const resolvers = {
   Query: {
@@ -16,15 +15,13 @@ const resolvers = {
     countries(){
       return  countries ;
     },
-
-    freelancers(){
-      return freelancers;
+    users(){ 
+      return User.find({ })
+    },
+    freelancers(){ 
+      return User.find({ isFreelancer: "true" })
     }
   },
-
-
-  
-  
   Mutation: {
     async addUser(parent, args, context, info) {
       const { name,_id } = args;

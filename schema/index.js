@@ -1,16 +1,16 @@
 import { gql } from "apollo-server-express";
 
 import User from './user.js';
-import Freelancer from './freelancer.js'
 
 const Query = `
     type Query {
         user(_id : ID!): User
+        users: [User]
+        freelancers: [User]
         countries: [CountryDetails]
-        freelancers: [Freelancer]
     }
 `;
 
-const schemas = [Query, User, Freelancer]
+const schemas = [Query, User]
 
 export default schemas; 

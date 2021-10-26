@@ -16,6 +16,7 @@ const typeDefs = gql`
     hobbies: [String]
     sports: [String]
     countriesICanWork: [String]
+    isFreelancer: Boolean
   }
 
   type CountryDetails {

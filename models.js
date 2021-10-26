@@ -41,6 +41,9 @@ const UserSchema = new Schema({
   },
   countriesICanWork : {
     type : Array,
+  },
+  isFreelancer : {
+    type: Boolean
   }
 });
 

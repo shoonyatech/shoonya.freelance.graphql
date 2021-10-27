@@ -1,240 +1,325 @@
-import { User,Project } from "./models.js";
+import { User, Project } from "./models.js";
 import countries from "./data/countries.js";
 import freelancers from "./data/freelancer.js";
 
 const resolvers = {
   Query: {
     user(_, args) {
-      const { _id,filter } = args
-      const shouldApplyFilters = filter !== undefined;
-      if (!shouldApplyFilters) {
-        return User.findById({ 
-          _id 
-        })
-      }
+      const { _id } = args;
+      return User.findById({
+        _id,
+      });
     },
 
     project(_, args) {
-      const { _id,filter } = args
-        return Project.findById({ 
-          _id 
-        })
+      const { _id } = args;
+      return Project.findById({
+        _id,
+      });
     },
 
-    countries(){
-      return  countries ;
+    countries() {
+      return countries;
     },
-
 
     projects() {
-      return Project.find({})
-    }
+      return Project.find({});
+    },
   },
 
   Mutation: {
     async addUser(parent, args, context, info) {
-      const { name,_id } = args;
-      const userObj = new User({
-        name,
-        _id
-      });
-      try {
-        const result = await userObj
-          .save();
-        return { ...result._doc };
-      } catch (err) {
-        console.error(err);
+      const { name, _id } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        const userObj = new User({
+          name,
+          _id,
+        });
+        try {
+          const result = await userObj.save();
+          return { ...result._doc };
+        } catch (err) {
+          console.error(err);
+        }
       }
     },
-    
-    async addProject(_, args) {
-      const { owner, title, scope, budget} = args;
+
+    async addProject(_, args, context) {
+      const { owner, title, scope, budget } = args;
       const userObj = new Project({
         owner,
         title,
         scope,
         budget,
-        isPublished: false
+        isPublished: false,
       });
-      try {
-        const result = await userObj
-          .save();
-        return { ...result._doc };
-      } catch (err) {
-        console.error(err);
+      const { userId } = context;
+      if (userId === owner) {
+        try {
+          const result = await userObj.save();
+          return { ...result._doc };
+        } catch (err) {
+          console.error(err);
+        }
       }
     },
 
-    updateUserNameTitle(_, args ) {
-      const { _id, name , title } = args  
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          name,
-          title
-        }}
-        )
-    },
-    updateUserPicture(_,args) {
-      const { _id, picture } = args  
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          picture
-        }}
-        )
-    },
-    updateUserBio (_,args) {
-      const { _id, bio } = args  
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          bio
-        }}
-      )
-    },
-    updateUserContact (_,args) {
-      const { _id, contact } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          contact
-        }}
-      )
+    updateUserNameTitle(_, args, context) {
+      const { _id, name, title } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              name,
+              title,
+            },
+          }
+        );
+      }
     },
 
-
-    updateUserProfessionalExperience (_,args) {
-      const { _id, professionalExperience } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          professionalExperience 
-        }}
-      )
+    updateUserPicture(_, args, context) {
+      const { _id, picture } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              picture,
+            },
+          }
+        );
+      }
     },
 
-    updateUserSkills (_,args) {
-      const { _id, skills } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          skills
-        }}
-      )
+    updateUserBio(_, args, context) {
+      const { _id, bio } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              bio,
+            },
+          }
+        );
+      }
     },
 
-
-    updateUserEducation (_,args) {
-      const { _id, education } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          education
-        }}
-      )
+    updateUserContact(_, args, context) {
+      const { _id, contact } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              contact,
+            },
+          }
+        );
+      }
     },
 
-    updateUserDeveloperCommunityInvolement (_,args) {
-      const { _id, developerCommunityInvolement } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          developerCommunityInvolement
-        }}
-      )
+    updateUserProfessionalExperience(_, args, context) {
+      const { _id, professionalExperience } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              professionalExperience,
+            },
+          }
+        );
+      }
     },
 
-    updateUserLanguages (_,args) {
-      const { _id, languages } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          languages
-        }}
-      )
-    },
-    updateUserHobbies (_,args) {
-      const { _id, hobbies } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          hobbies
-        }}
-      )
+    updateUserSkills(_, args, context) {
+      const { _id, skills } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              skills,
+            },
+          }
+        );
+      }
     },
 
-    updateUserSports (_,args) {
-      const { _id, sports } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          sports
-        }}
-      )
+    updateUserEducation(_, args, context) {
+      const { _id, education } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              education,
+            },
+          }
+        );
+      }
     },
 
-    updateUserCountriesICanWork (_,args) {
-      const { _id, countriesICanWork } = args 
-      return User.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          countriesICanWork
-        }}
-      )
+    updateUserDeveloperCommunityInvolement(_, args, context) {
+      const { _id, developerCommunityInvolement } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              developerCommunityInvolement,
+            },
+          }
+        );
+      }
     },
 
-     updateProjectTitle(_, args ) {
-      const { _id, title } = args  
-      return Project.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          title
-        }}
-        )
+    updateUserLanguages(_, args, context) {
+      const { _id, languages } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              languages,
+            },
+          }
+        );
+      }
+    },
+    updateUserHobbies(_, args, context) {
+      const { _id, hobbies } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              hobbies,
+            },
+          }
+        );
+      }
     },
 
-    updateProjectDescription(_, args ) {
-      const { _id, description } = args  
-      return Project.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          description
-        }}
-        )
+    updateUserSports(_, args, context) {
+      const { _id, sports } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              sports,
+            },
+          }
+        );
+      }
     },
 
-    updateProjectScope(_, args ) {
-      const { _id, scope } = args  
-      return Project.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          scope
-        }}
-        )
+    updateUserCountriesICanWork(_, args, context) {
+      const { _id, countriesICanWork } = args;
+      const { userId } = context;
+      if (userId === _id) {
+        return User.findOneAndUpdate(
+          { _id },
+          {
+            $set: {
+              countriesICanWork,
+            },
+          }
+        );
+      }
     },
 
-    updateProjectBudget(_, args ) {
-      const { _id, budget } = args  
-      return Project.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          budget
-        }}
-        )
+    updateProjectTitle(_, args, context) {
+      const { owner, title } = args;
+      const { userId } = context;
+      if (userId === owner) {
+        return Project.findOneAndUpdate(
+          { owner },
+          {
+            $set: {
+              title,
+            },
+          }
+        );
+      }
     },
 
-    updateProjectSkills(_, args ) {
-      const { _id, skills } = args  
-      return Project.findOneAndUpdate(
-        { _id },
-        { $set:  {
-          skills
-        }}
-        )
+    updateProjectDescription(_, args, context) {
+      const { owner, description } = args;
+      const { userId } = context;
+      if (userId === owner) {
+        return Project.findOneAndUpdate(
+          { owner },
+          {
+            $set: {
+              description,
+            },
+          }
+        );
+      }
     },
 
-  }
-}
+    updateProjectScope(_, args, context) {
+      const { owner, scope } = args;
+      const { userId } = context;
+      if (userId === owner) {
+        return Project.findOneAndUpdate(
+          { owner },
+          {
+            $set: {
+              scope,
+            },
+          }
+        );
+      }
+    },
+
+    updateProjectBudget(_, args, context) {
+      const { owner, budget } = args;
+      const { userId } = context;
+      if (userId === owner) {
+        return Project.findOneAndUpdate(
+          { owner },
+          {
+            $set: {
+              budget,
+            },
+          }
+        );
+      }
+    },
+
+    updateProjectSkills(_, args, context) {
+      const { owner, skills } = args;
+      const { userId } = context;
+      if (userId === owner) {
+        return Project.findOneAndUpdate(
+          { owner },
+          {
+            $set: {
+              skills,
+            },
+          }
+        );
+      }
+    },
+  },
+};
 
 export default resolvers;

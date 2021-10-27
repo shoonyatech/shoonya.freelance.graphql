@@ -4,45 +4,45 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   name: {
-    type : String,
-    required : true,
+    type: String,
+    required: true,
   },
   title: {
-    type : String,
+    type: String,
   },
   picture: {
-    type : String,
+    type: String,
   },
   bio: {
-    type : String,
+    type: String,
   },
   contact: {
-    type : Object,
-  },
-  professionalExperience : {
-    type: Array,
-  },
-  skills : {
-    type: Array,
-  },
-  education : {
-    type: Array,
-  },
-  developerCommunityInvolement : {
-    type: Array,
-  },
-  languages : {
-    type: Array,
-  },
-  hobbies : {
     type: Object,
   },
-  sports : {
-    type : Object,
+  professionalExperience: {
+    type: Array,
   },
-  countriesICanWork : {
-    type : Array,
-  }
+  skills: {
+    type: Array,
+  },
+  education: {
+    type: Array,
+  },
+  developerCommunityInvolement: {
+    type: Array,
+  },
+  languages: {
+    type: Array,
+  },
+  hobbies: {
+    type: Object,
+  },
+  sports: {
+    type: Object,
+  },
+  countriesICanWork: {
+    type: Array,
+  },
 });
 
 const ProjectSchema = new Schema({
@@ -53,22 +53,22 @@ const ProjectSchema = new Schema({
     type: String,
   },
   owner: {
-    type:  mongoose.ObjectId,
+    type: mongoose.ObjectId,
   },
   scope: {
-    type: Object
+    type: Object,
   },
   budget: {
-    type: Object
+    type: Object,
   },
-  skills : {
+  skills: {
     type: Array,
   },
   isPublished: {
-    type: Boolean
-  }
-})
+    type: Boolean,
+  },
+});
 
 const User = mongoose.model("User", UserSchema);
-const Project = mongoose.model("Project", ProjectSchema)
-export { User,Project };
+const Project = mongoose.model("Project", ProjectSchema);
+export { User, Project };

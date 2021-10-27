@@ -1,5 +1,5 @@
-import User from './user.js';
-import Project from './project.js';
+import User from "./user.js";
+import Project from "./project.js";
 
 const QueryAndMutation = `
     type Query {
@@ -23,16 +23,16 @@ const QueryAndMutation = `
         updateUserSports  ( _id: ID!, sports : [String] ) : User 
         updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : [String] ) : User 
         
-        addProject(owner: ID,title: String, scope: ScopeInput, budget: BudgetInput ): Project
-        updateProjectTitle( _id: ID!,title: String): Project
-        updateProjectDescription( _id: ID!,description: String): Project
-        updateProjectScope( _id: ID!,scope: ScopeInput): Project
-        updateProjectBudget( _id: ID!,budget: BudgetInput): Project
-        updateProjectSkills( _id: ID!,skills: [String]): Project
+        addProject(owner: ID!,title: String, scope: ScopeInput, budget: BudgetInput ): Project
+        updateProjectTitle( owner: ID!,title: String): Project
+        updateProjectDescription( owner: ID!,description: String): Project
+        updateProjectScope( owner: ID!,scope: ScopeInput): Project
+        updateProjectBudget( owner: ID!,budget: BudgetInput): Project
+        updateProjectSkills( owner: ID!,skills: [String]): Project
 
     }
 `;
 
-const schemas = [QueryAndMutation,User, Project]
+const schemas = [QueryAndMutation, User, Project];
 
 export default schemas;

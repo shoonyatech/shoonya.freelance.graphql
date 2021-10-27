@@ -3,8 +3,8 @@ import { gql } from "apollo-server-express";
 const typeDefs = gql`
   type Project {
     _id: ID!
-    owner: ID
-    title : String
+    owner: ID!
+    title: String
     description: String
     skills: [String]
     scope: Scope
@@ -13,15 +13,15 @@ const typeDefs = gql`
   }
 
   type Scope {
-    size : String
-    duration :  String
-    experience : String
+    size: String
+    duration: String
+    experience: String
   }
 
   input ScopeInput {
-    size : String
-    duration :  String
-    experience : String
+    size: String
+    duration: String
+    experience: String
   }
 
   type Budget {
@@ -29,12 +29,12 @@ const typeDefs = gql`
     currency: String
     amount: String
   }
-  
+
   input BudgetInput {
     type: String
     currency: String
     amount: String
   }
-`; 
+`;
 
 export default typeDefs;

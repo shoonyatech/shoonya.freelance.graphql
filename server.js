@@ -5,6 +5,7 @@ import http from "http";
 import mongoose from "mongoose";
 import typeDefs from "./schema/index.js";
 import resolvers from "./resolvers.js";
+import jwt from "jsonwebtoken";
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -12,6 +13,13 @@ async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => {
+      const getToken = req.headers.authorization || "";
+      const token = getToken?.slice(7);
+      const user = jwt.decode(token);
+      const userId = user?.sub.split("|")[1];
+      return { userId };
+    },
     playground: {
       settings: {
         "editor.theme": "light",

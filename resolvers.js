@@ -46,12 +46,13 @@ const resolvers = {
     },
 
     async addProject(_, args, context) {
-      const { owner, title, scope, budget } = args;
+      const { owner, title, scope, budget, skills } = args;
       const userObj = new Project({
         owner,
         title,
         scope,
         budget,
+        skills,
         isPublished: false,
       });
       const { userId } = context;

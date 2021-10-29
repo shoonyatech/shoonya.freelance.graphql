@@ -247,11 +247,11 @@ const resolvers = {
     },
 
     updateProjectTitle(_, args, context) {
-      const { owner, title } = args;
+      const { _id, owner, title } = args;
       const { userId } = context;
       if (userId === owner) {
         return Project.findOneAndUpdate(
-          { owner },
+          { _id },
           {
             $set: {
               title,
@@ -262,11 +262,11 @@ const resolvers = {
     },
 
     updateProjectDescription(_, args, context) {
-      const { owner, description } = args;
+      const { _id, owner, description } = args;
       const { userId } = context;
       if (userId === owner) {
         return Project.findOneAndUpdate(
-          { owner },
+          { _id },
           {
             $set: {
               description,
@@ -277,11 +277,11 @@ const resolvers = {
     },
 
     updateProjectScope(_, args, context) {
-      const { owner, scope } = args;
+      const { _id, owner, scope } = args;
       const { userId } = context;
       if (userId === owner) {
         return Project.findOneAndUpdate(
-          { owner },
+          { _id },
           {
             $set: {
               scope,
@@ -292,11 +292,11 @@ const resolvers = {
     },
 
     updateProjectBudget(_, args, context) {
-      const { owner, budget } = args;
+      const { _id, owner, budget } = args;
       const { userId } = context;
       if (userId === owner) {
         return Project.findOneAndUpdate(
-          { owner },
+          { _id },
           {
             $set: {
               budget,
@@ -307,11 +307,11 @@ const resolvers = {
     },
 
     updateProjectSkills(_, args, context) {
-      const { owner, skills } = args;
+      const { _id, owner, skills } = args;
       const { userId } = context;
       if (userId === owner) {
         return Project.findOneAndUpdate(
-          { owner },
+          { _id },
           {
             $set: {
               skills,

@@ -46,17 +46,17 @@ const resolvers = {
     },
 
     async addProject(_, args, context) {
-      const { owner, title, scope, budget, skills } = args;
+      const { title, scope, budget, skills } = args;
+      const { userId } = context;
       const userObj = new Project({
-        owner,
+        owner: userId,
         title,
         scope,
         budget,
         skills,
         isPublished: false,
       });
-      const { userId } = context;
-      if (userId === owner) {
+      if (userId) {
         try {
           const result = await userObj.save();
           return { ...result._doc };
@@ -246,10 +246,14 @@ const resolvers = {
       }
     },
 
-    updateProjectTitle(_, args, context) {
-      const { _id, owner, title } = args;
+    async updateProjectTitle(_, args, context) {
+      const { _id, title } = args;
       const { userId } = context;
-      if (userId === owner) {
+      const isProjectOwner = await Project.findOne({
+        _id,
+        owner: userId,
+      }).exec();
+      if (isProjectOwner) {
         return Project.findOneAndUpdate(
           { _id },
           {
@@ -261,10 +265,14 @@ const resolvers = {
       }
     },
 
-    updateProjectDescription(_, args, context) {
-      const { _id, owner, description } = args;
+    async updateProjectDescription(_, args, context) {
+      const { _id, description } = args;
       const { userId } = context;
-      if (userId === owner) {
+      const isProjectOwner = await Project.findOne({
+        _id,
+        owner: userId,
+      }).exec();
+      if (isProjectOwner) {
         return Project.findOneAndUpdate(
           { _id },
           {
@@ -276,10 +284,14 @@ const resolvers = {
       }
     },
 
-    updateProjectScope(_, args, context) {
-      const { _id, owner, scope } = args;
+    async updateProjectScope(_, args, context) {
+      const { _id, scope } = args;
       const { userId } = context;
-      if (userId === owner) {
+      const isProjectOwner = await Project.findOne({
+        _id,
+        owner: userId,
+      }).exec();
+      if (isProjectOwner) {
         return Project.findOneAndUpdate(
           { _id },
           {
@@ -291,10 +303,14 @@ const resolvers = {
       }
     },
 
-    updateProjectBudget(_, args, context) {
-      const { _id, owner, budget } = args;
+    async updateProjectBudget(_, args, context) {
+      const { _id, budget } = args;
       const { userId } = context;
-      if (userId === owner) {
+      const isProjectOwner = await Project.findOne({
+        _id,
+        owner: userId,
+      }).exec();
+      if (isProjectOwner) {
         return Project.findOneAndUpdate(
           { _id },
           {
@@ -306,10 +322,14 @@ const resolvers = {
       }
     },
 
-    updateProjectSkills(_, args, context) {
-      const { _id, owner, skills } = args;
+    async updateProjectSkills(_, args, context) {
+      const { _id, skills } = args;
       const { userId } = context;
-      if (userId === owner) {
+      const isProjectOwner = await Project.findOne({
+        _id,
+        owner: userId,
+      }).exec();
+      if (isProjectOwner) {
         return Project.findOneAndUpdate(
           { _id },
           {

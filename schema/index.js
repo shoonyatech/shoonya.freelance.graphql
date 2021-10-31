@@ -23,12 +23,12 @@ const QueryAndMutation = `
         updateUserSports  ( _id: ID!, sports : [String] ) : User 
         updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : [String] ) : User 
         
-        addProject(owner: ID!,title: String, scope: ScopeInput, budget: BudgetInput, skills: [String] ): Project
-        updateProjectTitle( _id: ID!,owner: ID!,title: String): Project
-        updateProjectDescription( _id: ID!,owner: ID!,description: String): Project
-        updateProjectScope( _id: ID!,owner: ID!,scope: ScopeInput): Project
-        updateProjectBudget( _id: ID!,owner: ID!,budget: BudgetInput): Project
-        updateProjectSkills( _id: ID!,owner: ID!,skills: [String]): Project
+        addProject(title: String, scope: ScopeInput, budget: BudgetInput, skills: [String] ): Project
+        updateProjectTitle( _id: ID!,title: String): Project
+        updateProjectDescription( _id: ID!,description: String): Project
+        updateProjectScope( _id: ID!,scope: ScopeInput): Project
+        updateProjectBudget( _id: ID!,budget: BudgetInput): Project
+        updateProjectSkills( _id: ID!,skills: [String]): Project
 
     }
 `;

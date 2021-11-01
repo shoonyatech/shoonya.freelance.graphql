@@ -21,6 +21,7 @@ const typeDefs = gql`
 
   type CountryDetails {
     name: String
+    currency: String
   }
   
   type DeveloperCommunityInvolement {
@@ -96,7 +97,6 @@ const typeDefs = gql`
     github : String
     twitter : String
   }
-
   type Mutation {
     addUser(name: String, _id :ID!): User
     updateUserNameTitle( _id: ID!,name: String,title: String): User
@@ -112,6 +112,7 @@ const typeDefs = gql`
     updateUserSports  ( _id: ID!, sports : [String] ) : User 
     updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : [String] ) : User 
   }
+=======
 `;
 
 export default typeDefs;

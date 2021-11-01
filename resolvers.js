@@ -77,7 +77,8 @@ const resolvers = {
               name,
               title,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -92,7 +93,8 @@ const resolvers = {
             $set: {
               picture,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -107,7 +109,8 @@ const resolvers = {
             $set: {
               bio,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -122,7 +125,8 @@ const resolvers = {
             $set: {
               contact,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -137,7 +141,8 @@ const resolvers = {
             $set: {
               professionalExperience,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -152,7 +157,8 @@ const resolvers = {
             $set: {
               skills,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -167,7 +173,8 @@ const resolvers = {
             $set: {
               education,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -182,7 +189,8 @@ const resolvers = {
             $set: {
               developerCommunityInvolement,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -197,10 +205,12 @@ const resolvers = {
             $set: {
               languages,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
+
     updateUserHobbies(_, args, context) {
       const { _id, hobbies } = args;
       const { userId } = context;
@@ -211,7 +221,8 @@ const resolvers = {
             $set: {
               hobbies,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -226,7 +237,8 @@ const resolvers = {
             $set: {
               sports,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -241,7 +253,8 @@ const resolvers = {
             $set: {
               countriesICanWork,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -260,7 +273,8 @@ const resolvers = {
             $set: {
               title,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -279,7 +293,8 @@ const resolvers = {
             $set: {
               description,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -298,7 +313,8 @@ const resolvers = {
             $set: {
               scope,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -317,7 +333,8 @@ const resolvers = {
             $set: {
               budget,
             },
-          }
+          },
+          { new: true }
         );
       }
     },
@@ -336,7 +353,8 @@ const resolvers = {
             $set: {
               skills,
             },
-          }
+          },
+          { new: true }
         );
       }
     },

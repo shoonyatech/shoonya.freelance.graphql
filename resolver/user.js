@@ -1,8 +1,5 @@
-import { User, Project } from "./models.js";
-import countries from "./data/countries.js";
-import freelancers from "./data/freelancer.js";
-
-const resolvers = {
+import { User } from "../models.js";
+const userResolver = {
   Query: {
     user(_, args) {
       const { _id } = args;
@@ -10,23 +7,7 @@ const resolvers = {
         _id,
       });
     },
-
-    project(_, args) {
-      const { _id } = args;
-      return Project.findById({
-        _id,
-      });
-    },
-
-    countries() {
-      return countries;
-    },
-
-    projects() {
-      return Project.find({});
-    },
   },
-
   Mutation: {
     async addUser(parent, args, context, info) {
       const { name, _id } = args;
@@ -36,27 +17,6 @@ const resolvers = {
           name,
           _id,
         });
-        try {
-          const result = await userObj.save();
-          return { ...result._doc };
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    },
-
-    async addProject(_, args, context) {
-      const { title, scope, budget, skills } = args;
-      const { userId } = context;
-      const userObj = new Project({
-        owner: userId,
-        title,
-        scope,
-        budget,
-        skills,
-        isPublished: false,
-      });
-      if (userId) {
         try {
           const result = await userObj.save();
           return { ...result._doc };
@@ -258,107 +218,7 @@ const resolvers = {
         );
       }
     },
-
-    async updateProjectTitle(_, args, context) {
-      const { _id, title } = args;
-      const { userId } = context;
-      const isProjectOwner = await Project.findOne({
-        _id,
-        owner: userId,
-      }).exec();
-      if (isProjectOwner) {
-        return Project.findOneAndUpdate(
-          { _id },
-          {
-            $set: {
-              title,
-            },
-          },
-          { new: true }
-        );
-      }
-    },
-
-    async updateProjectDescription(_, args, context) {
-      const { _id, description } = args;
-      const { userId } = context;
-      const isProjectOwner = await Project.findOne({
-        _id,
-        owner: userId,
-      }).exec();
-      if (isProjectOwner) {
-        return Project.findOneAndUpdate(
-          { _id },
-          {
-            $set: {
-              description,
-            },
-          },
-          { new: true }
-        );
-      }
-    },
-
-    async updateProjectScope(_, args, context) {
-      const { _id, scope } = args;
-      const { userId } = context;
-      const isProjectOwner = await Project.findOne({
-        _id,
-        owner: userId,
-      }).exec();
-      if (isProjectOwner) {
-        return Project.findOneAndUpdate(
-          { _id },
-          {
-            $set: {
-              scope,
-            },
-          },
-          { new: true }
-        );
-      }
-    },
-
-    async updateProjectBudget(_, args, context) {
-      const { _id, budget } = args;
-      const { userId } = context;
-      const isProjectOwner = await Project.findOne({
-        _id,
-        owner: userId,
-      }).exec();
-      if (isProjectOwner) {
-        return Project.findOneAndUpdate(
-          { _id },
-          {
-            $set: {
-              budget,
-            },
-          },
-          { new: true }
-        );
-      }
-    },
-
-    async updateProjectSkills(_, args, context) {
-      const { _id, skills } = args;
-      const { userId } = context;
-      const isProjectOwner = await Project.findOne({
-        _id,
-        owner: userId,
-      }).exec();
-      if (isProjectOwner) {
-        return Project.findOneAndUpdate(
-          { _id },
-          {
-            $set: {
-              skills,
-            },
-          },
-          { new: true }
-        );
-      }
-    },
   },
 };
 
-export default resolvers;
+export default userResolver;

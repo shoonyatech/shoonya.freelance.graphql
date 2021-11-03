@@ -4,7 +4,7 @@ import express from "express";
 import http from "http";
 import mongoose from "mongoose";
 import typeDefs from "./schema/index.js";
-import resolvers from "./resolvers.js";
+import resolvers from "./resolver/index.js";
 import jwt from "jsonwebtoken";
 
 async function startApolloServer(typeDefs, resolvers) {

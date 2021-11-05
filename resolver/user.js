@@ -12,17 +12,15 @@ const userResolver = {
     async addUser(parent, args, context, info) {
       const { name, _id } = args;
       const { userId } = context;
-      if (userId === _id) {
-        const userObj = new User({
-          name,
-          _id,
-        });
-        try {
-          const result = await userObj.save();
-          return { ...result._doc };
-        } catch (err) {
-          console.error(err);
-        }
+      const userObj = new User({
+        name,
+        _id,
+      });
+      try {
+        const result = await userObj.save();
+        return { ...result._doc };
+      } catch (err) {
+        console.error(err);
       }
     },
 

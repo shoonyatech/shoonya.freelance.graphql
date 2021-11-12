@@ -1,4 +1,5 @@
 import { User } from "../models.js";
+
 const userResolver = {
   Query: {
     user(_, args) {
@@ -11,7 +12,6 @@ const userResolver = {
   Mutation: {
     async addUser(parent, args, context, info) {
       const { name, _id } = args;
-      const { userId } = context;
       const userObj = new User({
         name,
         _id,
@@ -25,11 +25,11 @@ const userResolver = {
     },
 
     updateUserNameTitle(_, args, context) {
-      const { _id, name, title } = args;
+      const { name, title } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               name,
@@ -38,15 +38,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserPicture(_, args, context) {
-      const { _id, picture } = args;
+      const { picture } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               picture,
@@ -54,15 +53,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserBio(_, args, context) {
-      const { _id, bio } = args;
+      const { bio } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               bio,
@@ -70,15 +68,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
-
     updateUserContact(_, args, context) {
-      const { _id, contact } = args;
+      const { contact } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
+
           {
             $set: {
               contact,
@@ -86,15 +83,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
-
     updateUserProfessionalExperience(_, args, context) {
-      const { _id, professionalExperience } = args;
+      const { professionalExperience } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
+
           {
             $set: {
               professionalExperience,
@@ -102,15 +98,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserSkills(_, args, context) {
-      const { _id, skills } = args;
+      const { skills } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               skills,
@@ -118,15 +113,15 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserEducation(_, args, context) {
-      const { _id, education } = args;
+      const { education } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
+
           {
             $set: {
               education,
@@ -134,15 +129,15 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserDeveloperCommunityInvolement(_, args, context) {
-      const { _id, developerCommunityInvolement } = args;
+      const { developerCommunityInvolement } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
+
           {
             $set: {
               developerCommunityInvolement,
@@ -150,15 +145,15 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserLanguages(_, args, context) {
-      const { _id, languages } = args;
+      const { languages } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
+
           {
             $set: {
               languages,
@@ -166,15 +161,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserHobbies(_, args, context) {
-      const { _id, hobbies } = args;
+      const { hobbies } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               hobbies,
@@ -182,15 +176,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserSports(_, args, context) {
-      const { _id, sports } = args;
+      const { sports } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               sports,
@@ -198,15 +191,14 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
 
     updateUserCountriesICanWork(_, args, context) {
-      const { _id, countriesICanWork } = args;
+      const { countriesICanWork } = args;
       const { userId } = context;
-      if (userId === _id) {
+      if (userId)
         return User.findOneAndUpdate(
-          { _id },
+          { _id: userId },
           {
             $set: {
               countriesICanWork,
@@ -214,7 +206,6 @@ const userResolver = {
           },
           { new: true }
         );
-      }
     },
   },
 };

@@ -10,18 +10,18 @@ const QueryAndMutation = `
     }
     type Mutation {
         addUser(name: String, _id :ID!): User
-        updateUserNameTitle( _id: ID!,name: String,title: String): User
-        updateUserPicture ( _id: ID!, picture:String ): User
-        updateUserBio ( _id: ID!, bio:String ) : User 
-        updateUserContact ( _id: ID!, contact : ContactInput ) : User 
-        updateUserProfessionalExperience ( _id: ID!, professionalExperience : [ProfessionalExperienceInput] ) : User 
-        updateUserSkills ( _id: ID!, skills : [SkillsInput] ) : User 
-        updateUserEducation  ( _id: ID!, education : [EducationInput] ) : User 
-        updateUserDeveloperCommunityInvolement  ( _id: ID!, developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
-        updateUserLanguages  ( _id: ID!, languages : [String] ) : User 
-        updateUserHobbies  ( _id: ID!, hobbies : [String] ) : User 
-        updateUserSports  ( _id: ID!, sports : [String] ) : User 
-        updateUserCountriesICanWork  ( _id: ID!, countriesICanWork : [String] ) : User 
+        updateUserNameTitle( name: String,title: String): User
+        updateUserPicture (picture:String ): User
+        updateUserBio (bio:String ) : User 
+        updateUserContact (contact : ContactInput ) : User 
+        updateUserProfessionalExperience (professionalExperience : [ProfessionalExperienceInput] ) : User 
+        updateUserSkills (skills : [SkillsInput] ) : User 
+        updateUserEducation(education : [EducationInput] ) : User 
+        updateUserDeveloperCommunityInvolement  (  developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
+        updateUserLanguages  (  languages : [String] ) : User 
+        updateUserHobbies  (  hobbies : [String] ) : User 
+        updateUserSports  ( sports : [String] ) : User 
+        updateUserCountriesICanWork  (  countriesICanWork : [String] ) : User 
         
         addProject(title: String, scope: ScopeInput, budget: BudgetInput, skills: [String] ): Project
         updateProjectTitle( _id: ID!,title: String): Project

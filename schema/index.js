@@ -1,5 +1,6 @@
 import User from "./user.js";
 import Project from "./project.js";
+import Proposal from "./proposal.js";
 
 const QueryAndMutation = `
     type Query {
@@ -17,10 +18,10 @@ const QueryAndMutation = `
         updateUserProfessionalExperience (professionalExperience : [ProfessionalExperienceInput] ) : User 
         updateUserSkills (skills : [SkillsInput] ) : User 
         updateUserEducation(education : [EducationInput] ) : User 
-        updateUserDeveloperCommunityInvolement  (  developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
-        updateUserLanguages  (  languages : [String] ) : User 
-        updateUserHobbies  (  hobbies : [String] ) : User 
-        updateUserSports  ( sports : [String] ) : User 
+        updateUserDeveloperCommunityInvolement  (developerCommunityInvolement : [DeveloperCommunityInvolementInput] ) : User 
+        updateUserLanguages  (languages : [String] ) : User 
+        updateUserHobbies  (hobbies : [String] ) : User 
+        updateUserSports  (sports : [String] ) : User 
         updateUserCountriesICanWork  (  countriesICanWork : [String] ) : User 
         
         addProject(title: String, scope: ScopeInput, budget: BudgetInput, skills: [String] ): Project
@@ -30,9 +31,10 @@ const QueryAndMutation = `
         updateProjectBudget( _id: ID!,budget: BudgetInput): Project
         updateProjectSkills( _id: ID!,skills: [String]): Project
 
+        addNewProposal(coverLetter: String , budget: String) : Proposal
     }
 `;
 
-const schemas = [QueryAndMutation, User, Project];
+const schemas = [QueryAndMutation, User, Project, Proposal];
 
 export default schemas;

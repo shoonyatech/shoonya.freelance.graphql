@@ -1,7 +1,21 @@
 import { Proposal } from "../models.js";
 
 const proposalResolver = {
-  Query: {},
+  Query: {
+    async proposals(_, args) {
+      const { proposser } = args;
+      const userProposals = await Proposal.find({
+        proposser,
+      });
+
+      try {
+        const result = userProposals;
+        return result ? result : [];
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 
   Mutation: {
     async addNewProposal(_, args, context) {

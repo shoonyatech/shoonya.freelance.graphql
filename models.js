@@ -69,6 +69,20 @@ const ProjectSchema = new Schema({
   },
 });
 
+const ProposalSchema = new Schema({
+  coverLetter: {
+    type: String,
+  },
+  budget: {
+    type: String,
+  },
+  proposser: {
+    type: mongoose.ObjectId,
+  },
+});
+
 const User = mongoose.model("User", UserSchema);
 const Project = mongoose.model("Project", ProjectSchema);
-export { User, Project };
+const Proposal = mongoose.model("Proposal", ProposalSchema);
+
+export { User, Project, Proposal };

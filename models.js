@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const UserSchema = new Schema({
   name: {
@@ -53,7 +54,7 @@ const ProjectSchema = new Schema({
     type: String,
   },
   owner: {
-    type: mongoose.ObjectId,
+    type: ObjectId,
   },
   scope: {
     type: Object,
@@ -77,7 +78,7 @@ const ProposalSchema = new Schema({
     type: String,
   },
   proposser: {
-    type: mongoose.ObjectId,
+    type: ObjectId,
   },
 });
 

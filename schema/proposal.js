@@ -6,6 +6,7 @@ const typeDefs = gql`
     coverLetter: String
     budget: String
     proposser: ID!
+    projectId: ID!
   }
 `;
 

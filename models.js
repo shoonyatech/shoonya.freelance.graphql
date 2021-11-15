@@ -80,6 +80,9 @@ const ProposalSchema = new Schema({
   proposser: {
     type: ObjectId,
   },
+  projectId: {
+    type: ObjectId,
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

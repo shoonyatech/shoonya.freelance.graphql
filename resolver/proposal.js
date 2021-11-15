@@ -19,12 +19,13 @@ const proposalResolver = {
 
   Mutation: {
     async addNewProposal(_, args, context) {
-      const { coverLetter, budget } = args;
+      const { coverLetter, budget, projectId } = args;
       const { userId } = context;
       if (!userId) return;
       const proposalObj = new Proposal({
         coverLetter,
         budget,
+        projectId,
         proposser: userId,
       });
       try {

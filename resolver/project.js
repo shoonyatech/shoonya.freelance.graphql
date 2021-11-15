@@ -15,6 +15,27 @@ const projectResolver = {
   },
 
   Mutation: {
+    async addProject(_, args, context) {
+      const { title, scope, budget, skills } = args;
+      const { userId } = context;
+      const userObj = new Project({
+        owner: userId,
+        title,
+        scope,
+        budget,
+        skills,
+        isPublished: false,
+      });
+      if (userId) {
+        try {
+          const result = await userObj.save();
+          return { ...result._doc };
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    },
+
     async updateProjectTitle(_, args, context) {
       const { _id, title } = args;
       const { userId } = context;

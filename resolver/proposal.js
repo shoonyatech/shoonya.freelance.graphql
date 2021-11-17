@@ -3,13 +3,17 @@ import { Proposal } from "../models.js";
 const proposalResolver = {
   Query: {
     async proposals(_, args) {
-      const { proposser } = args;
-      const userProposals = await Proposal.find({
-        proposser,
-      });
+      const { proposser, projectId } = args;
+      const getProposals = proposser
+        ? await Proposal.find({
+            proposser,
+          })
+        : await Proposal.find({
+            projectId,
+          });
 
       try {
-        const result = userProposals;
+        const result = getProposals;
         return result ? result : [];
       } catch (err) {
         console.log(err);

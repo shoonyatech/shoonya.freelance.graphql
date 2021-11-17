@@ -8,8 +8,7 @@ const QueryAndMutation = `
         countries: [CountryDetails]
         projects(owner: ID): [Project]
         project(_id: ID! ): Project
-        proposals(proposser: ID! ) : [Proposal]
-
+        proposals(proposser: ID,projectId: ID ) : [Proposal]
     }
     type Mutation {
         addUser(name: String, _id :ID!): User

@@ -9,8 +9,13 @@ const projectResolver = {
       });
     },
 
-    projects() {
-      return Project.find({});
+    projects(_, args) {
+      const { owner } = args;
+      return owner
+        ? Project.find({
+            owner,
+          })
+        : Project.find({});
     },
   },
 

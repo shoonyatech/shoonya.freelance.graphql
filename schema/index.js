@@ -6,7 +6,7 @@ const QueryAndMutation = `
     type Query {
         user(_id: ID!): User
         countries: [CountryDetails]
-        projects: [Project]
+        projects(owner: ID): [Project]
         project(_id: ID! ): Project
         proposals(proposser: ID! ) : [Proposal]
 

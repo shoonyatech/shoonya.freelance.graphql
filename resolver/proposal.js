@@ -1,10 +1,10 @@
 import { Proposal } from "../models.js";
-
+import { Project } from "../models.js";
 const proposalResolver = {
   Query: {
-    async proposals(_, args) {
+    /* async proposals(_, args) {
       const { proposser, projectId } = args;
-      const getProposals = proposser
+      const getProposals = 
         ? await Proposal.find({
             proposser,
           })
@@ -18,6 +18,19 @@ const proposalResolver = {
       } catch (err) {
         console.log(err);
       }
+    }, */
+
+    async getProposals(_, args) {
+      const { projectId } = args;
+      const isProjectExist = await Project.findOne({
+        _id: projectId,
+      }).exec();
+      if (isProjectExist) {
+        return await Proposal.find({
+          projectId,
+        });
+      }
+      // handle error here
     },
   },
 

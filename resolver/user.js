@@ -8,6 +8,14 @@ const userResolver = {
         _id,
       });
     },
+    freelancers(_, args) {
+      const { _id } = args;
+      return User.find({
+        _id: {
+          $in: _id,
+        },
+      });
+    },
   },
   Mutation: {
     async addUser(parent, args, context, info) {

@@ -5,6 +5,7 @@ import Proposal from "./proposal.js";
 const QueryAndMutation = `
     type Query {
         user(_id: ID!): User
+        freelancers(_id: [ID!]!): [User]
         countries: [CountryDetails]
         projects(owner: ID): [Project]
         project(_id: ID! ): Project

@@ -2,23 +2,12 @@ import { Proposal } from "../models.js";
 import { Project } from "../models.js";
 const proposalResolver = {
   Query: {
-    /* async proposals(_, args) {
-      const { proposser, projectId } = args;
-      const getProposals = 
-        ? await Proposal.find({
-            proposser,
-          })
-        : await Proposal.find({
-            projectId,
-          });
-
-      try {
-        const result = getProposals;
-        return result ? result : [];
-      } catch (err) {
-        console.log(err);
-      }
-    }, */
+    async getProposalsByUser(_, args) {
+      const { proposser } = args;
+      return await Proposal.find({
+        proposser,
+      });
+    },
 
     async getProposals(_, args) {
       const { projectId } = args;

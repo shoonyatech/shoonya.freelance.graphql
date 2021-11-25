@@ -17,6 +17,19 @@ const projectResolver = {
           })
         : Project.find({});
     },
+
+    filterOwnerProjects(_, args) {
+      const { owner } = args;
+      return owner
+        ? Project.find({
+            owner: {
+              $not: {
+                $eq: owner,
+              },
+            },
+          })
+        : Project.find({});
+    },
   },
 
   Mutation: {

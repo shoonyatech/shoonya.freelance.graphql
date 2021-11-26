@@ -12,7 +12,7 @@ const QueryAndMutation = `
         project(_id: ID! ): Project
         getProposals( projectId: ID! ) : [Proposal]
         getProposalsByUser( proposser: ID! ) : [Proposal]
-
+        getProposalsById( _id: ID! ) : Proposal
     }
     type Mutation {
         addUser(name: String, _id :ID!): User

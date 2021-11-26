@@ -9,6 +9,13 @@ const proposalResolver = {
       });
     },
 
+    async getProposalsById(_, args) {
+      const { _id } = args;
+      return await Proposal.findOne({
+        _id,
+      });
+    },
+
     async getProposals(_, args) {
       const { projectId } = args;
       const isProjectExist = await Project.findOne({

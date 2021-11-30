@@ -44,6 +44,19 @@ const UserSchema = new Schema({
   countriesICanWork: {
     type: Array,
   },
+  proposals: [
+    {
+      coverLetter: {
+        type: String,
+      },
+      propossedRate: {
+        type: String,
+      },
+      projectId: {
+        type: ObjectId,
+      },
+    },
+  ],
 });
 
 const ProjectSchema = new Schema({
@@ -70,23 +83,7 @@ const ProjectSchema = new Schema({
   },
 });
 
-const ProposalSchema = new Schema({
-  coverLetter: {
-    type: String,
-  },
-  budget: {
-    type: String,
-  },
-  proposser: {
-    type: ObjectId,
-  },
-  projectId: {
-    type: ObjectId,
-  },
-});
-
 const User = mongoose.model("User", UserSchema);
 const Project = mongoose.model("Project", ProjectSchema);
-const Proposal = mongoose.model("Proposal", ProposalSchema);
 
-export { User, Project, Proposal };
+export { User, Project };

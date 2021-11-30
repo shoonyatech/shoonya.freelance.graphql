@@ -4,7 +4,7 @@ const typeDefs = gql`
   type Proposal {
     _id: ID!
     coverLetter: String
-    budget: String
+    propossedRate: String
     proposser: ID!
     projectId: ID!
   }

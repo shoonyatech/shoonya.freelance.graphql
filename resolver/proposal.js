@@ -1,5 +1,9 @@
-import { Proposal } from "../models.js";
 import { Project } from "../models.js";
+import { User } from "../models.js";
+import mongoose from "mongoose";
+const { ObjectId } = mongoose.Types;
+import Server from "apollo-server-express";
+
 const proposalResolver = {
   Query: {
     async getProposalsByUser(_, args) {
@@ -32,21 +36,29 @@ const proposalResolver = {
 
   Mutation: {
     async addNewProposal(_, args, context) {
-      const { coverLetter, budget, projectId } = args;
+      const { coverLetter, propossedRate, projectId } = args;
       const { userId } = context;
-      if (!userId) return;
-      const proposalObj = new Proposal({
-        coverLetter,
-        budget,
-        projectId,
-        proposser: userId,
-      });
-      try {
-        const result = await proposalObj.save();
-        return { ...result._doc };
-      } catch (err) {
-        console.log(err);
+      if (!userId) {
+        throw new Server.AuthenticationError(
+          "You must be logged in to request information from this API"
+        );
       }
+
+      return User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $push: {
+            proposals: {
+              coverLetter,
+              propossedRate,
+              projectId,
+              _id: new ObjectId(),
+            },
+          },
+        }
+      );
     },
   },
 };

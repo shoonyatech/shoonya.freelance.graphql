@@ -4,33 +4,34 @@ const typeDefs = gql`
   type User {
     _id: ID!
     name: String
-    title :String
-    picture: String 
+    title: String
+    picture: String
     bio: String
     contact: Contact
     professionalExperience: [ProfessionalExperience]
-    skills : [Skills]
+    skills: [Skills]
     education: [Education]
     developerCommunityInvolement: [DeveloperCommunityInvolement]
     languages: [String]
     hobbies: [String]
     sports: [String]
     countriesICanWork: [String]
+    proposals: [Proposals]
   }
 
   type CountryDetails {
     name: String
     currency: String
   }
-  
+
   type DeveloperCommunityInvolement {
-    title: String 
-    description : String
+    title: String
+    description: String
   }
 
   input DeveloperCommunityInvolementInput {
-    title: String 
-    description : String
+    title: String
+    description: String
   }
 
   type Education {
@@ -48,53 +49,60 @@ const typeDefs = gql`
   }
 
   type Skills {
-    name : String 
-    scale : Int
+    name: String
+    scale: Int
   }
 
   input SkillsInput {
-    name : String 
-    scale : Int
+    name: String
+    scale: Int
   }
 
   type ProfessionalExperience {
-    company : String
-    jobTitle :  String
-    location : String
-    startYear : Int
-    endYear : Int
-    description : String
-    currentJob : Boolean 
-    techStack : [String]
+    company: String
+    jobTitle: String
+    location: String
+    startYear: Int
+    endYear: Int
+    description: String
+    currentJob: Boolean
+    techStack: [String]
   }
-  
+
   input ProfessionalExperienceInput {
-    company : String
-    jobTitle :  String  
-    startYear :  Int
-    endYear : Int
-    location : String
-    description : String
-    currentJob : Boolean
-    techStack : [String]
+    company: String
+    jobTitle: String
+    startYear: Int
+    endYear: Int
+    location: String
+    description: String
+    currentJob: Boolean
+    techStack: [String]
   }
 
   type Contact {
-    location : String 
-    phone : String
-    mail : String
-    linkedin : String
-    github : String
-    twitter : String
+    location: String
+    phone: String
+    mail: String
+    linkedin: String
+    github: String
+    twitter: String
   }
 
   input ContactInput {
-    location : String 
-    phone : String
-    mail : String
-    linkedin : String
-    github : String
-    twitter : String
+    location: String
+    phone: String
+    mail: String
+    linkedin: String
+    github: String
+    twitter: String
+  }
+
+  type Proposals {
+    _id: ID!
+    coverLetter: String
+    propossedRate: String
+    projectId: ID
   }
 `;
 

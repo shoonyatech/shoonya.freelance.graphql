@@ -11,7 +11,7 @@ const QueryAndMutation = `
         filterOwnerProjects(owner: ID): [Project]
         project(_id: ID! ): Project
         getProposals( projectId: ID! ) : [Proposal]
-        getProposalsByUser( proposser: ID! ) : [Proposal]
+        getUserProposals( _id: ID! ) : [Proposal]
         getProposalsById( _id: ID! ) : Proposal
     }
     type Mutation {

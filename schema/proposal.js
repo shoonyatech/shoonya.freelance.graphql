@@ -5,7 +5,6 @@ const typeDefs = gql`
     _id: ID!
     coverLetter: String
     propossedRate: String
-    proposser: ID!
     projectId: ID!
   }
 `;

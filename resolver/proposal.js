@@ -1,23 +1,43 @@
 import { Project } from "../models.js";
 import { User } from "../models.js";
+import { Proposal } from "../models.js";
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Types;
 import Server from "apollo-server-express";
 
 const proposalResolver = {
   Query: {
-    async getProposalsByUser(_, args) {
-      const { proposser } = args;
+    async getUserProposals(_, args) {
+      const { _id } = args;
+      const proposalIdArray = await User.findOne(
+        {
+          _id,
+        },
+        {
+          "proposals._id": 1,
+          _id: 0,
+        }
+      );
+      const proposalIdArray2 = proposalIdArray.proposals.map(
+        (proposal) => proposal._id
+      );
       return await Proposal.find({
-        proposser,
+        _id: {
+          $in: proposalIdArray2,
+        },
       });
     },
 
     async getProposalsById(_, args) {
       const { _id } = args;
-      return await Proposal.findOne({
-        _id,
-      });
+      return await Proposal.findOne(
+        {
+          _id,
+        },
+        {
+          project,
+        }
+      );
     },
 
     async getProposals(_, args) {
@@ -39,26 +59,34 @@ const proposalResolver = {
       const { coverLetter, propossedRate, projectId } = args;
       const { userId } = context;
       if (!userId) {
-        throw new Server.AuthenticationError(
-          "You must be logged in to request information from this API"
-        );
+        throw new Server.AuthenticationError("You must be logged in");
       }
-
-      return User.updateOne(
+      const newId = new ObjectId();
+      await User.updateOne(
         {
           _id: userId,
         },
         {
           $push: {
             proposals: {
-              coverLetter,
-              propossedRate,
-              projectId,
-              _id: new ObjectId(),
+              _id: newId,
             },
           },
         }
       );
+
+      const userObj = new Proposal({
+        _id: newId,
+        propossedRate,
+        coverLetter,
+        projectId,
+      });
+      try {
+        const result = await userObj.save();
+        return { ...result._doc };
+      } catch (err) {
+        console.error(err);
+      }
     },
   },
 };

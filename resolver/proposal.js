@@ -30,14 +30,9 @@ const proposalResolver = {
 
     async getProposalsById(_, args) {
       const { _id } = args;
-      return await Proposal.findOne(
-        {
-          _id,
-        },
-        {
-          project,
-        }
-      );
+      return await Proposal.findOne({
+        _id,
+      });
     },
 
     async getProposals(_, args) {
@@ -56,7 +51,7 @@ const proposalResolver = {
 
   Mutation: {
     async addNewProposal(_, args, context) {
-      const { coverLetter, propossedRate, projectId } = args;
+      const { coverLetter, propossedRate, projectId, projectTitle } = args;
       const { userId } = context;
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
@@ -80,6 +75,7 @@ const proposalResolver = {
         propossedRate,
         coverLetter,
         projectId,
+        projectTitle,
       });
       try {
         const result = await userObj.save();

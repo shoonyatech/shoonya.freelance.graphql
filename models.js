@@ -44,19 +44,9 @@ const UserSchema = new Schema({
   countriesICanWork: {
     type: Array,
   },
-  proposals: [
-    {
-      coverLetter: {
-        type: String,
-      },
-      propossedRate: {
-        type: String,
-      },
-      projectId: {
-        type: ObjectId,
-      },
-    },
-  ],
+  proposals: {
+    type: Array,
+  },
 });
 
 const ProposalSchema = new Schema({
@@ -68,6 +58,9 @@ const ProposalSchema = new Schema({
   },
   projectId: {
     type: ObjectId,
+  },
+  projectTitle: {
+    type: String,
   },
 });
 

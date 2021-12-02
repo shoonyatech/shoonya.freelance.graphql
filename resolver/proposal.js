@@ -84,6 +84,41 @@ const proposalResolver = {
         console.error(err);
       }
     },
+    async deleteProposal(_, args, context) {
+      const { userId } = context;
+      if (!userId) {
+        throw new Server.AuthenticationError("You must be logged in");
+      }
+      const { _id } = args;
+      const isProposalOwner = await User.findOne({
+        _id: userId,
+        proposals: {
+          $elemMatch: { _id: ObjectId(_id) },
+        },
+      }).exec();
+      console.log(isProposalOwner);
+      if (!isProposalOwner) {
+        throw new Server.ForbiddenError(
+          "You are not allowed to do this action"
+        );
+      }
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $pull: {
+            proposals: {
+              _id: ObjectId(_id),
+            },
+          },
+        }
+      );
+
+      await Proposal.deleteOne({
+        _id,
+      });
+    },
   },
 };
 

@@ -37,6 +37,7 @@ const QueryAndMutation = `
         updateProjectSkills( _id: ID!,skills: [String]): Project
 
         addNewProposal(coverLetter: String!, propossedRate: String!,projectId: ID!,projectTitle: String) : User
+        deleteProposal(_id: ID!) : Proposal
     }
 `;
 

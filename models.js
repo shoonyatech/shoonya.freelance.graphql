@@ -47,6 +47,9 @@ const UserSchema = new Schema({
   proposals: {
     type: Array,
   },
+  projects: {
+    type: Array,
+  },
 });
 
 const ProposalSchema = new Schema({

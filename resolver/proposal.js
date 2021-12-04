@@ -1,6 +1,4 @@
-import { Project } from "../models.js";
-import { User } from "../models.js";
-import { Proposal } from "../models.js";
+import { Project, User, Proposal } from "../models.js";
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Types;
 import Server from "apollo-server-express";
@@ -51,12 +49,12 @@ const proposalResolver = {
 
   Mutation: {
     async addNewProposal(_, args, context) {
-      const { coverLetter, proposedRate, projectId, projectTitle, currency } =
-        args;
       const { userId } = context;
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
+      const { coverLetter, proposedRate, projectId, projectTitle, currency } =
+        args;
       const newId = new ObjectId();
       await User.updateOne(
         {
@@ -70,7 +68,6 @@ const proposalResolver = {
           },
         }
       );
-
       const userObj = new Proposal({
         _id: newId,
         proposedRate,

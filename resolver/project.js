@@ -1,7 +1,29 @@
-import { Project } from "../models.js";
+import { Project, User } from "../models.js";
+import mongoose from "mongoose";
+
+const { ObjectId } = mongoose.Types;
 
 const projectResolver = {
   Query: {
+    async getUserProjects(_, args) {
+      const { _id } = args;
+      const projectArray = await User.findOne(
+        {
+          _id,
+        },
+        {
+          projects: 1,
+          _id: 0,
+        }
+      );
+
+      return await Project.find({
+        _id: {
+          $in: projectArray.projects,
+        },
+      });
+    },
+
     project(_, args) {
       const { _id } = args;
       return Project.findById({
@@ -34,9 +56,25 @@ const projectResolver = {
 
   Mutation: {
     async addProject(_, args, context) {
-      const { title, scope, budget, skills } = args;
       const { userId } = context;
+      if (!userId) {
+        throw new Server.AuthenticationError("You must be logged in");
+      }
+      const newId = new ObjectId();
+      const { title, scope, budget, skills } = args;
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $push: {
+            projects: newId,
+          },
+        }
+      );
+
       const userObj = new Project({
+        _id: newId,
         owner: userId,
         title,
         scope,
@@ -44,6 +82,7 @@ const projectResolver = {
         skills,
         isPublished: false,
       });
+
       if (userId) {
         try {
           const result = await userObj.save();

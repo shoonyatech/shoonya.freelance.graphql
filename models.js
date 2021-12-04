@@ -53,7 +53,7 @@ const ProposalSchema = new Schema({
   coverLetter: {
     type: String,
   },
-  propossedRate: {
+  proposedRate: {
     type: String,
   },
   projectId: {

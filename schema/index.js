@@ -31,6 +31,7 @@ const QueryAndMutation = `
         updateUserCountriesICanWork  (  countriesICanWork : [String] ) : User 
         
         addProject(title: String, scope: ScopeInput, budget: BudgetInput, skills: [String] ): Project
+        deleteProject(_id: ID!) : Project
         updateProjectTitle( _id: ID!,title: String): Project
         updateProjectDescription( _id: ID!,description: String): Project
         updateProjectScope( _id: ID!,scope: ScopeInput): Project

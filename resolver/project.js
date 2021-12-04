@@ -93,6 +93,40 @@ const projectResolver = {
       }
     },
 
+    async deleteProject(_, args, context) {
+      const { userId } = context;
+      if (!userId) {
+        throw new Server.AuthenticationError("You must be logged in");
+      }
+      const { _id } = args;
+      const isProjectOwner = await User.findOne({
+        _id: userId,
+        projects: {
+          $in: ObjectId(_id),
+        },
+      }).exec();
+
+      if (!isProjectOwner) {
+        throw new Server.ForbiddenError(
+          "You are not allowed to do this action"
+        );
+      }
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $pull: {
+            projects: ObjectId(_id),
+          },
+        }
+      );
+
+      await Project.deleteOne({
+        _id,
+      });
+    },
+
     async updateProjectTitle(_, args, context) {
       const { _id, title } = args;
       const { userId } = context;

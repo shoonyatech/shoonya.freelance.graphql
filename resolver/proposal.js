@@ -51,7 +51,7 @@ const proposalResolver = {
 
   Mutation: {
     async addNewProposal(_, args, context) {
-      const { coverLetter, propossedRate, projectId, projectTitle } = args;
+      const { coverLetter, proposedRate, projectId, projectTitle } = args;
       const { userId } = context;
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
@@ -72,7 +72,7 @@ const proposalResolver = {
 
       const userObj = new Proposal({
         _id: newId,
-        propossedRate,
+        proposedRate,
         coverLetter,
         projectId,
         projectTitle,

@@ -101,7 +101,7 @@ const typeDefs = gql`
   type Proposals {
     _id: ID!
     coverLetter: String
-    propossedRate: String
+    proposedRate: String
     projectId: ID
   }
 `;

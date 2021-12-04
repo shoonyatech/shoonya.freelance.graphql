@@ -6,6 +6,7 @@ const typeDefs = gql`
     coverLetter: String
     proposedRate: String
     projectTitle: String
+    currency: String
     projectId: ID!
   }
 `;

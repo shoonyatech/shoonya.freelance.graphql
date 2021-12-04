@@ -62,6 +62,9 @@ const ProposalSchema = new Schema({
   projectTitle: {
     type: String,
   },
+  currency: {
+    type: String,
+  },
 });
 
 const ProjectSchema = new Schema({

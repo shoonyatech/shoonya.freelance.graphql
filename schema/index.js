@@ -11,6 +11,7 @@ const QueryAndMutation = `
         getUserProjects(_id: ID! ): [Project]
         filterOwnerProjects(owner: ID): [Project]
         project(_id: ID! ): Project
+        getProposalsByProject(_id: ID!): [User]
         getProposals( projectId: ID! ) : [Proposal]
         getUserProposals( _id: ID! ) : [Proposal]
         getProposalsById( _id: ID! ) : Proposal
@@ -38,7 +39,7 @@ const QueryAndMutation = `
         updateProjectBudget( _id: ID!,budget: BudgetInput): Project
         updateProjectSkills( _id: ID!,skills: [String]): Project
 
-        addNewProposal(coverLetter: String!, proposedRate: String!,projectId: ID!,projectTitle: String!,currency: String!) : Proposal
+        addNewProposal(coverLetter: String!, proposedRate: String!,projectId: ID!,projectTitle: String!,currency: String!,proposserId : ID!) : Proposal
         deleteProposal(_id: ID!) : Proposal
     }
 `;

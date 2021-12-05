@@ -26,6 +26,24 @@ const proposalResolver = {
       });
     },
 
+    async getProposalsByProject(_, args) {
+      const { _id } = args;
+      const temp = await Project.findOne(
+        {
+          _id,
+        },
+        {
+          proposers: 1,
+          _id: 0,
+        }
+      );
+      return await User.find({
+        _id: {
+          $in: temp.proposers,
+        },
+      });
+    },
+
     async getProposalsById(_, args) {
       const { _id } = args;
       return await Proposal.findOne({
@@ -53,9 +71,29 @@ const proposalResolver = {
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
-      const { coverLetter, proposedRate, projectId, projectTitle, currency } =
-        args;
+      const {
+        coverLetter,
+        proposedRate,
+        projectId,
+        projectTitle,
+        currency,
+        proposserId,
+      } = args;
       const newId = new ObjectId();
+      const check = await Project.findOne({
+        _id: projectId,
+      }).exec();
+      console.log({ check });
+      await Project.updateOne(
+        {
+          _id: projectId,
+        },
+        {
+          $push: {
+            proposers: proposserId,
+          },
+        }
+      );
       await User.updateOne(
         {
           _id: userId,

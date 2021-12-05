@@ -92,6 +92,9 @@ const ProjectSchema = new Schema({
   isPublished: {
     type: Boolean,
   },
+  proposers: {
+    type: Array,
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

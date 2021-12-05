@@ -10,6 +10,7 @@ const typeDefs = gql`
     scope: Scope
     budget: Budget
     isPublished: Boolean
+    proposers: [ID]
   }
 
   type Scope {

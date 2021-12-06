@@ -44,6 +44,19 @@ const proposalResolver = {
       });
     },
 
+    async getProjectOwner(_, args) {
+      const { _id } = args;
+      return Project.findOne(
+        {
+          _id,
+        },
+        {
+          owner: 1,
+          _id: 0,
+        }
+      );
+    },
+
     async getProposalsById(_, args) {
       const { _id } = args;
       return await Proposal.findOne({

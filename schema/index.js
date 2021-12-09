@@ -12,6 +12,7 @@ const QueryAndMutation = `
         filterOwnerProjects(owner: ID): [Project]
         project(_id: ID! ): Project
         getProposalsByProject(_id: ID!): [User]
+        getProposalsByProject2(_id: ID!): [Proposal]
         getProjectOwner(_id: ID!): Project
         getProposals( projectId: ID! ) : [Proposal]
         getUserProposals( _id: ID! ) : [Proposal]

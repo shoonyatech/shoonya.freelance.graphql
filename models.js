@@ -92,7 +92,7 @@ const ProjectSchema = new Schema({
   isPublished: {
     type: Boolean,
   },
-  proposers: {
+  proposals: {
     type: Array,
   },
 });

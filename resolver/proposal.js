@@ -27,19 +27,41 @@ const proposalResolver = {
     },
 
     async getProposalsByProject(_, args) {
+      // todo : check if only owner is tryign to access this query
       const { _id } = args;
       const temp = await Project.findOne(
         {
           _id,
         },
         {
-          proposers: 1,
+          proposals: 1,
           _id: 0,
         }
       );
+      const propossers = temp.proposals.map((proposser) => proposser.proposser);
       return await User.find({
         _id: {
-          $in: temp.proposers,
+          $in: propossers,
+        },
+      });
+    },
+
+    async getProposalsByProject2(_, args) {
+      // todo : check if only owner is tryign to access this query
+      const { _id } = args;
+      const temp = await Project.findOne(
+        {
+          _id,
+        },
+        {
+          proposals: 1,
+          _id: 0,
+        }
+      );
+      const proposals = temp.proposals.map((proposser) => proposser.proposalId);
+      return await Proposal.find({
+        _id: {
+          $in: proposals,
         },
       });
     },
@@ -87,16 +109,17 @@ const proposalResolver = {
       const { coverLetter, proposedRate, projectId, projectTitle, currency } =
         args;
       const newId = new ObjectId();
-      const check = await Project.findOne({
-        _id: projectId,
-      }).exec();
+
       await Project.updateOne(
         {
           _id: projectId,
         },
         {
           $push: {
-            proposers: userId,
+            proposals: {
+              proposalId: newId,
+              proposser: userId,
+            },
           },
         }
       );

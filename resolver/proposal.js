@@ -84,26 +84,19 @@ const proposalResolver = {
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
-      const {
-        coverLetter,
-        proposedRate,
-        projectId,
-        projectTitle,
-        currency,
-        proposserId,
-      } = args;
+      const { coverLetter, proposedRate, projectId, projectTitle, currency } =
+        args;
       const newId = new ObjectId();
       const check = await Project.findOne({
         _id: projectId,
       }).exec();
-      console.log({ check });
       await Project.updateOne(
         {
           _id: projectId,
         },
         {
           $push: {
-            proposers: proposserId,
+            proposers: userId,
           },
         }
       );
@@ -134,6 +127,7 @@ const proposalResolver = {
         console.error(err);
       }
     },
+
     async deleteProposal(_, args, context) {
       const { userId } = context;
       if (!userId) {
@@ -146,7 +140,6 @@ const proposalResolver = {
           $elemMatch: { _id: ObjectId(_id) },
         },
       }).exec();
-      console.log(isProposalOwner);
       if (!isProposalOwner) {
         throw new Server.ForbiddenError(
           "You are not allowed to do this action"

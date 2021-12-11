@@ -7,9 +7,10 @@ const QueryAndMutation = `
         user(_id: ID!): User
         freelancers(_id: [ID!]!): [User]
         countries: [CountryDetails]
-        projects(owner: ID): [Project]
         getUserProjects(_id: ID! ): [Project]
+
         filterOwnerProjects(owner: ID): [Project]
+        
         project(_id: ID! ): Project
         getProposalsByProject(_id: ID!): [User]
         getProposalsByProject2(_id: ID!): [Proposal]

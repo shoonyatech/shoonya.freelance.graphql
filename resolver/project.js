@@ -31,15 +31,6 @@ const projectResolver = {
       });
     },
 
-    projects(_, args) {
-      const { owner } = args;
-      return owner
-        ? Project.find({
-            owner,
-          })
-        : Project.find({});
-    },
-
     filterOwnerProjects(_, args) {
       const { owner } = args;
       return owner

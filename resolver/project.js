@@ -33,16 +33,16 @@ const projectResolver = {
 
     projects(_, args) {
       const { input } = args;
+      const skills = input?.skills?.length && { $all: input.skills }
       return Project.find({
         owner: {
           $not: {
             $eq: input.owner,
           },
         },
-        skills: {
-          $all: input.skills
-        }
-      })
+        ...(skills && { skills: { $all: input.skills } })
+      }
+      )
     },
   },
 

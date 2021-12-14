@@ -9,7 +9,7 @@ const QueryAndMutation = `
         countries: [CountryDetails]
         getUserProjects(_id: ID! ): [Project]
 
-        filterOwnerProjects(owner: ID): [Project]
+        projects(input: ProjectsInputFilter): [Project]
         
         project(_id: ID! ): Project
         getProposalsByProject(_id: ID!): [User]

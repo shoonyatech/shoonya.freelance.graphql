@@ -36,6 +36,12 @@ const typeDefs = gql`
     currency: String
     amount: String
   }
+
+  input ProjectsInputFilter {
+    title: String
+    skills: [String]
+    owner: ID
+  }
 `;
 
 export default typeDefs;

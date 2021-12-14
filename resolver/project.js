@@ -31,17 +31,18 @@ const projectResolver = {
       });
     },
 
-    filterOwnerProjects(_, args) {
-      const { owner } = args;
-      return owner
-        ? Project.find({
-            owner: {
-              $not: {
-                $eq: owner,
-              },
-            },
-          })
-        : Project.find({});
+    projects(_, args) {
+      const { input } = args;
+      return Project.find({
+        owner: {
+          $not: {
+            $eq: input.owner,
+          },
+        },
+        skills: {
+          $all: input.skills
+        }
+      })
     },
   },
 

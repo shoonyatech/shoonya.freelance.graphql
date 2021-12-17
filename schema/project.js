@@ -40,6 +40,7 @@ const typeDefs = gql`
   input ProjectsInputFilter {
     title: String
     skills: [String]
+    projectType: String
     owner: ID
   }
 `;

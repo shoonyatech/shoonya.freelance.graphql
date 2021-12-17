@@ -33,17 +33,43 @@ const projectResolver = {
 
     projects(_, args) {
       const { input } = args;
-      const skills = input?.skills?.length && { $all: input.skills }
-      const projectType = input?.projectType && { "budget.type": input.projectType }
+      const { owner, skills, projectType, fixedRate, hourlyRate } = input
       return Project.find({
         owner: {
           $not: {
-            $eq: input.owner,
+            $eq: owner,
           },
         },
-        ...(skills && { skills: { $all: input.skills } }),
-        ...(projectType && projectType)
-      }
+        ...(skills?.length && { skills: { $all: skills } }),
+        ...(projectType && { "budget.type": projectType }),
+        ...(fixedRate && {
+          $and: [
+            {
+              "budget.amount": {
+                "$gt": fixedRate
+              }
+            },
+            {
+              "budget.type": "fixed rate"
+            }
+          ]
+
+        }),
+        ...(hourlyRate && {
+          $and: [
+            {
+              "budget.amount": {
+                "$gt": hourlyRate
+              }
+            },
+            {
+              "budget.type": "hourly rate"
+            }
+          ]
+
+        })
+
+      },
       )
     },
   },

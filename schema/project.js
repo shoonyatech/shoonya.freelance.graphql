@@ -28,19 +28,21 @@ const typeDefs = gql`
   type Budget {
     type: String
     currency: String
-    amount: String
+    amount: Int
   }
 
   input BudgetInput {
     type: String
     currency: String
-    amount: String
+    amount: Int
   }
 
   input ProjectsInputFilter {
     title: String
     skills: [String]
     projectType: String
+    fixedRate: Int
+    hourlyRate: Int
     owner: ID
   }
 `;

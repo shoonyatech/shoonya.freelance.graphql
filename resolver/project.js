@@ -1,5 +1,6 @@
 import { Project, User } from "../models.js";
 import mongoose from "mongoose";
+import Server from "apollo-server-express";
 
 const { ObjectId } = mongoose.Types;
 
@@ -77,9 +78,10 @@ const projectResolver = {
   Mutation: {
     async addProject(_, args, context) {
       const { userId } = context;
-      if (!userId) {
-        throw new Server.AuthenticationError("You must be logged in");
-      }
+      // console.log({ userId })
+      // if (!userId) {
+      //   throw new Server.AuthenticationError("You must be logged in");
+      // }
       const newId = new ObjectId();
       const { title, scope, budget, skills } = args;
       await User.updateOne(

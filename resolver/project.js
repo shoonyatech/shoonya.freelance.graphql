@@ -34,7 +34,7 @@ const projectResolver = {
 
     projects(_, args) {
       const { input } = args;
-      const { owner, skills, projectType, fixedRate, hourlyRate } = input
+      const { owner, skills, fixed, hourly } = input
       return Project.find({
         owner: {
           $not: {
@@ -42,32 +42,13 @@ const projectResolver = {
           },
         },
         ...(skills?.length && { skills: { $all: skills } }),
-        ...(projectType && { "budget.type": projectType }),
-        ...(fixedRate && {
-          $and: [
-            {
-              "budget.amount": {
-                "$gt": fixedRate
-              }
-            },
-            {
-              "budget.type": "fixed rate"
-            }
-          ]
-
+        ...(fixed.checked && {
+          "budget.amount": fixed.min && fixed.max ? { $gt: fixed.min, $lt: fixed.max } :
+            fixed.min ? { $gt: fixed.min } : { $lt: fixed.max }
         }),
-        ...(hourlyRate && {
-          $and: [
-            {
-              "budget.amount": {
-                "$gt": hourlyRate
-              }
-            },
-            {
-              "budget.type": "hourly rate"
-            }
-          ]
-
+        ...(hourly.checked && (hourly.min || hourly.max) && {
+          "budget.amount": hourly.min && hourly.max ? { $gt: hourly.min, $lt: hourly.max } :
+            hourly.min ? { $gt: hourly.min } : { $lt: hourly.max }
         })
 
       },
@@ -82,6 +63,7 @@ const projectResolver = {
       // if (!userId) {
       //   throw new Server.AuthenticationError("You must be logged in");
       // }
+      console.log(userId)
       const newId = new ObjectId();
       const { title, scope, budget, skills } = args;
       await User.updateOne(

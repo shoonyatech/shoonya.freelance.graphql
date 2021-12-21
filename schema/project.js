@@ -40,11 +40,18 @@ const typeDefs = gql`
   input ProjectsInputFilter {
     title: String
     skills: [String]
-    projectType: String
-    fixedRate: Int
-    hourlyRate: Int
+    fixed: BudgetFilter
+    hourly: BudgetFilter
     owner: ID
   }
+
+  input BudgetFilter {
+    checked: Boolean,
+    currency: String
+    min: Int
+    max: Int
+  }
 `;
+
 
 export default typeDefs;

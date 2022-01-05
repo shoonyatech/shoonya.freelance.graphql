@@ -104,6 +104,19 @@ const projectResolver = {
           }
         })
 
+
+      if (skills?.length)
+        arr.push({
+          $match: {
+            skills: { $all: skills }
+          }
+        })
+      if (!arr.length)
+        return Project.aggregate([
+          {
+            '$match': {}
+          }
+        ])
       return Project.aggregate(arr)
     },
   },
@@ -164,7 +177,7 @@ const projectResolver = {
 
       if (!isProjectOwner) {
         throw new Server.ForbiddenError(
-          "You are not allowed to do this action"
+          "You are not allowed to   do this action"
         );
       }
       await User.updateOne(

@@ -61,46 +61,48 @@ const projectResolver = {
           }
         })
 
-      if (fixed.checked && fixed.currency)
+      if (fixed.min || fixed.max || hourly.min || hourly.max)
         arr.push({
           $match: {
-            $and: [
+            $or: [
               {
-                "budget.amount": {
-                  ...(fixed.min && { $gt: fixed.min }),
-                  ...(fixed.max && { $lt: fixed.max }),
-                }
+                $and: [{
+                  "budget.amount": {
+                    ...(fixed.checked && fixed.currency && {
+                      ...(fixed.min && { $gt: fixed.min }),
+                      ...(fixed.max && { $lt: fixed.max }),
+                    })
+                  }
+                }, {
+                  "budget.currency": {
+                    $eq: fixed.currency
+                  }
+                },
+                {
+                  "budget.type": { $eq: 'fixed rate' }
+                }],
               },
+
               {
-                "budget.currency": {
-                  $eq: fixed.currency
-                }
+                $and: [
+                  {
+                    "budget.amount": {
+                      ...(hourly.checked && hourly.currency && {
+                        ...(hourly.min && { $gt: hourly.min }),
+                        ...(hourly.max && { $lt: hourly.max }),
+                      })
+                    }
+                  }, {
+                    "budget.currency": {
+                      $eq: hourly.currency
+                    }
+                  }, {
+                    "budget.type": { $eq: 'hourly rate' }
+                  }
+                ]
+
               }
-
             ]
-
-          }
-        })
-
-
-      if (hourly.checked && hourly.currency)
-        arr.push({
-          $match: {
-            $and: [
-              {
-                "budget.amount": {
-                  ...(hourly.min && { $gt: hourly.min }),
-                  ...(hourly.max && { $lt: hourly.max }),
-                }
-              },
-              {
-                "budget.currency": {
-                  $eq: hourly.currency
-                }
-              }
-
-            ]
-
           }
         })
 

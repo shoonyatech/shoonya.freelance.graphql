@@ -35,17 +35,9 @@ const projectResolver = {
     projects(_, args) {
       const { input } = args;
       const { owner, skills, fixed, hourly, title } = input
-      let arr = [{
-        '$match': {
-          'owner': {
-            '$not': {
-              '$eq': ObjectId(owner)
-            }
-          }
-        }
-      }]
+      let arr = []
       if (title)
-        arr.unshift({
+        arr.push({
           '$search': {
             'index': 'projects',
             'text': {
@@ -57,6 +49,61 @@ const projectResolver = {
             }
           }
         })
+
+      if (owner)
+        arr.push({
+          '$match': {
+            'owner': {
+              '$not': {
+                '$eq': ObjectId(owner)
+              }
+            }
+          }
+        })
+
+      if (fixed.checked && fixed.currency)
+        arr.push({
+          $match: {
+            $and: [
+              {
+                "budget.amount": {
+                  ...(fixed.min && { $gt: fixed.min }),
+                  ...(fixed.max && { $lt: fixed.max }),
+                }
+              },
+              {
+                "budget.currency": {
+                  $eq: fixed.currency
+                }
+              }
+
+            ]
+
+          }
+        })
+
+
+      if (hourly.checked && hourly.currency)
+        arr.push({
+          $match: {
+            $and: [
+              {
+                "budget.amount": {
+                  ...(hourly.min && { $gt: hourly.min }),
+                  ...(hourly.max && { $lt: hourly.max }),
+                }
+              },
+              {
+                "budget.currency": {
+                  $eq: hourly.currency
+                }
+              }
+
+            ]
+
+          }
+        })
+
       return Project.aggregate(arr)
     },
   },

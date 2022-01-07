@@ -50,6 +50,16 @@ const typeDefs = gql`
     min: Int
     max: Int
   }
+
+  input ProjectInput {
+    _id: ID!
+    owner: ID!
+    title: String
+    description: String
+    skills: [String]
+    scope: ScopeInput
+    budget: BudgetInput
+  }
 `;
 
 

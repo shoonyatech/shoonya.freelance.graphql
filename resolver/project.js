@@ -198,6 +198,31 @@ const projectResolver = {
       });
     },
 
+    async updateProject(_, args, context) {
+      const { project: { _id, title, skills, scope, budget, description } } = args
+      const { userId } = context
+      // todo : uncomment this below once auth0 is fixed
+      // const isProjectOwner = await Project.findOne({
+      //   _id,
+      //   owner: userId,
+      // }).exec();
+
+      return Project.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            title,
+            skills,
+            scope,
+            budget,
+            description
+          }
+        },
+        { new: true }
+      )
+    },
+
+
     async updateProjectTitle(_, args, context) {
       const { _id, title } = args;
       const { userId } = context;

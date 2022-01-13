@@ -116,10 +116,7 @@ const proposalResolver = {
         },
         {
           $push: {
-            proposals: {
-              proposalId: newId,
-              proposser: userId,
-            },
+            proposals: newId,
           },
         }
       );
@@ -129,12 +126,12 @@ const proposalResolver = {
         },
         {
           $push: {
-            proposals: {
-              _id: newId,
-            },
+            proposals:
+              newId,
           },
         }
       );
+
       const userObj = new Proposal({
         _id: newId,
         proposedRate,

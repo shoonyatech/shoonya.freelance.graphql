@@ -139,6 +139,7 @@ const proposalResolver = {
         _id: newId,
         proposedRate,
         coverLetter,
+        proposserId: ObjectId(userId),
         projectId,
         projectTitle,
         currency,

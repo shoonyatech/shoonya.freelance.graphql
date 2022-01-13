@@ -8,6 +8,7 @@ const typeDefs = gql`
     projectTitle: String
     currency: String
     projectId: ID!
+    proposserId: ID!
   }
 `;
 

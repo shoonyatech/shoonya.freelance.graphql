@@ -103,9 +103,8 @@ const proposalResolver = {
   Mutation: {
     async addNewProposal(_, args, context) {
       const { userId } = context;
-      if (!userId) {
+      if (!userId)
         throw new Server.AuthenticationError("You must be logged in");
-      }
       const { coverLetter, proposedRate, projectId, projectTitle, currency } =
         args;
       const newId = new ObjectId();
@@ -183,6 +182,26 @@ const proposalResolver = {
         _id,
       });
     },
+
+
+    async updateProposal(_, args, context) {
+      const { userId } = context;
+      if (!userId) {
+        throw new Server.AuthenticationError("You must be logged in");
+      }
+      const { _id, coverLetter, proposedRate } = args
+      return Proposal.findOneAndUpdate(
+        { _id },
+        {
+          $set: {
+            coverLetter,
+            proposedRate
+          }
+        },
+        { new: true }
+      )
+    }
+
   },
 };
 

@@ -45,6 +45,7 @@ const QueryAndMutation = `
 
         addNewProposal(coverLetter: String!, proposedRate: String!,projectId: ID!,projectTitle: String!,currency: String!) : Proposal
         deleteProposal(_id: ID!) : Proposal
+        updateProposal(_id:ID!,coverLetter: String!, proposedRate: String!): Proposal
     }
 `;
 

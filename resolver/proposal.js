@@ -79,11 +79,21 @@ const proposalResolver = {
       );
     },
 
-    async getProposalsById(_, args) {
+    async getProposalsById(_, args, context) {
       const { _id } = args;
+      const { userId } = context
+      const res = await Proposal.findOne({
+        _id,
+      }).exec()
+      // todo : allow the owner of the project to view the proposal
+      if (!res.proposserId.equals(userId))
+        throw new Server.ForbiddenError(
+          "You dont have the permission to view this proposal"
+        );
+
       return await Proposal.findOne({
         _id,
-      });
+      })
     },
 
     async getProposals(_, args) {

@@ -38,24 +38,23 @@ const projectResolver = {
       let arr = []
       if (title)
         arr.push({
-          '$search': {
-            'index': 'projects',
-            'text': {
-              'query': title,
-              'path': 'title',
-              'fuzzy': {
-                'maxEdits': 1
+          $search: {
+            index: 'projects',
+            text: {
+              query: title,
+              path: 'title',
+              fuzzy: {
+                maxEdits: 1
               }
             }
           }
         })
-
       if (owner)
         arr.push({
-          '$match': {
-            'owner': {
-              '$not': {
-                '$eq': ObjectId(owner)
+          $match: {
+            owner: {
+              $not: {
+                $eq: ObjectId(owner)
               }
             }
           }
@@ -113,6 +112,7 @@ const projectResolver = {
             skills: { $all: skills }
           }
         })
+      // console.log(arr[1].$match.$or[0])
       if (!arr.length)
         return Project.aggregate([
           {
@@ -169,6 +169,7 @@ const projectResolver = {
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
+      console.log(userId)
       const { _id } = args;
       const isProjectOwner = await User.findOne({
         _id: userId,

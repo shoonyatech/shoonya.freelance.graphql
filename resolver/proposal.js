@@ -163,11 +163,11 @@ const proposalResolver = {
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
-      const { _id } = args;
+      const { _id, projectId } = args;
       const isProposalOwner = await User.findOne({
         _id: userId,
         proposals: {
-          $elemMatch: { _id: ObjectId(_id) },
+          $in: ObjectId(_id),
         },
       }).exec();
       if (!isProposalOwner) {
@@ -181,13 +181,21 @@ const proposalResolver = {
         },
         {
           $pull: {
-            proposals: {
-              _id: ObjectId(_id),
-            },
+            proposals: ObjectId(_id),
           },
         }
       );
 
+      await Project.updateOne(
+        {
+          _id: projectId
+        },
+        {
+          $pull: {
+            proposals: ObjectId(_id)
+          }
+        }
+      )
       await Proposal.deleteOne({
         _id,
       });

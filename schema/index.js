@@ -18,6 +18,7 @@ const QueryAndMutation = `
         getProposals( projectId: ID! ) : [Proposal]
         getUserProposals( _id: ID! ) : [Proposal]
         getProposalsById( _id: ID! ) : Proposal
+        hasUserAppliedForProject( projectId: ID!): Proposal
     }
     type Mutation {
         addUser(name: String, _id :ID!): User

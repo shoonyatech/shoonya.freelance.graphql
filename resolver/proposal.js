@@ -108,6 +108,16 @@ const proposalResolver = {
       }
       // handle error here
     },
+    async hasUserAppliedForProject(_, args, context) {
+      const { userId } = context
+      const { projectId } = args
+      return Proposal.findOne(
+        {
+          projectId,
+          proposserId: userId
+        }
+      )
+    }
   },
 
   Mutation: {

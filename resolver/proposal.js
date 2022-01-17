@@ -125,7 +125,8 @@ const proposalResolver = {
       const { userId } = context;
       if (!userId)
         throw new Server.AuthenticationError("You must be logged in");
-      const { coverLetter, proposedRate, projectId, projectTitle, currency } =
+      const { coverLetter, proposedRate, projectId, projectTitle, currency, proposser
+      } =
         args;
       const newId = new ObjectId();
 
@@ -155,7 +156,10 @@ const proposalResolver = {
         _id: newId,
         proposedRate,
         coverLetter,
-        proposserId: ObjectId(userId),
+        proposser: {
+          _id: ObjectId(userId),
+          ...proposser,
+        },
         projectId,
         projectTitle,
         currency,

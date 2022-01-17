@@ -14,7 +14,7 @@ const typeDefs = gql`
   type Proposser {
     _id: ID!
     name: String
-    avatar: String
+    picture: String
     skills: [String]
     location: String
   }

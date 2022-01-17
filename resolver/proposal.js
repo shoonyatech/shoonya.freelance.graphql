@@ -38,7 +38,8 @@ const proposalResolver = {
           _id: 0,
         }
       );
-      const propossers = temp.proposals.map((proposser) => proposser.proposser);
+      console.log(temp.proposals)
+      const propossers = temp.proposals
       return await User.find({
         _id: {
           $in: propossers,
@@ -58,7 +59,8 @@ const proposalResolver = {
           _id: 0,
         }
       );
-      const proposals = temp.proposals.map((proposser) => proposser.proposalId);
+      const proposals = temp.proposals
+      console.log(proposals)
       return await Proposal.find({
         _id: {
           $in: proposals,
@@ -114,7 +116,7 @@ const proposalResolver = {
       return Proposal.findOne(
         {
           projectId,
-          proposserId: userId
+          "proposser._id": ObjectId(userId)
         }
       )
     }

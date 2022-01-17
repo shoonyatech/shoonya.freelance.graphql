@@ -88,7 +88,7 @@ const proposalResolver = {
         _id,
       }).exec()
       // todo : allow the owner of the project to view the proposal
-      if (!res.proposserId.equals(userId))
+      if (!res.proposser._id.equals(userId))
         throw new Server.ForbiddenError(
           "You dont have the permission to view this proposal"
         );
@@ -142,7 +142,7 @@ const proposalResolver = {
           },
         }
       );
-      await User.updateOne(
+      const userDetails = await User.findOneAndUpdate(
         {
           _id: userId,
         },
@@ -152,7 +152,7 @@ const proposalResolver = {
               newId,
           },
         }
-      );
+      ).exec()
 
       const userObj = new Proposal({
         _id: newId,
@@ -160,7 +160,10 @@ const proposalResolver = {
         coverLetter,
         proposser: {
           _id: ObjectId(userId),
-          ...proposser,
+          name: userDetails?.name,
+          skills: userDetails?.skills,
+          picture: userDetails?.picture,
+          location: userDetails?.contact?.location
         },
         projectId,
         projectTitle,

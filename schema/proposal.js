@@ -18,13 +18,6 @@ const typeDefs = gql`
     skills: [String]
     location: String
   }
-
-  input ProposserInput {
-    name: String
-    avatar: String
-    skills: [String]
-    location: String
-  }
 `;
 
 export default typeDefs;

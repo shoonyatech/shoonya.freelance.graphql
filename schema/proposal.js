@@ -8,7 +8,22 @@ const typeDefs = gql`
     projectTitle: String
     currency: String
     projectId: ID!
-    proposserId: ID!
+    proposser: Proposser
+  }
+
+  type Proposser {
+    _id: ID!
+    name: String
+    avatar: String
+    skills: [String]
+    location: String
+  }
+
+  input ProposserInput {
+    name: String
+    avatar: String
+    skills: [String]
+    location: String
   }
 `;
 

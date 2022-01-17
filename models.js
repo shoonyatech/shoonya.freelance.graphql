@@ -68,8 +68,8 @@ const ProposalSchema = new Schema({
   currency: {
     type: String,
   },
-  proposserId: {
-    type: ObjectId,
+  proposser: {
+    type: Object,
   }
 });
 

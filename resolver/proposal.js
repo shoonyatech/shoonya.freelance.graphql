@@ -28,45 +28,14 @@ const proposalResolver = {
 
     async getProposalsByProject(_, args) {
       // todo : check if only owner is tryign to access this query
-      const { _id } = args;
-      const temp = await Project.findOne(
+      const { projectId } = args;
+      return await Proposal.find(
         {
-          _id,
-        },
-        {
-          proposals: 1,
-          _id: 0,
+          projectId
         }
       );
-      console.log(temp.proposals)
-      const propossers = temp.proposals
-      return await User.find({
-        _id: {
-          $in: propossers,
-        },
-      });
     },
 
-    async getProposalsByProject2(_, args) {
-      // todo : check if only owner is tryign to access this query
-      const { _id } = args;
-      const temp = await Project.findOne(
-        {
-          _id,
-        },
-        {
-          proposals: 1,
-          _id: 0,
-        }
-      );
-      const proposals = temp.proposals
-      console.log(proposals)
-      return await Proposal.find({
-        _id: {
-          $in: proposals,
-        },
-      });
-    },
 
     async getProjectOwner(_, args) {
       const { _id } = args;

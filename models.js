@@ -70,6 +70,9 @@ const ProposalSchema = new Schema({
   },
   proposser: {
     type: Object,
+  },
+  verdict: {
+    type: String
   }
 });
 

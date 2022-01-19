@@ -21,7 +21,7 @@ const QueryAndMutation = `
         hasUserAppliedForProject( projectId: ID!): Proposal
     }
     type Mutation {
-        addUser(name: String, _id :ID!): User
+        addUser(name: String!,email: String!): User
         updateUserNameTitle( name: String,title: String): User
         updateUserPicture (picture:String ): User
         updateUserBio (bio:String ) : User 

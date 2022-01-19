@@ -1,4 +1,7 @@
 import { User } from "../models.js";
+import mongoose from "mongoose";
+
+const { ObjectId } = mongoose.Types;
 
 const userResolver = {
   Query: {
@@ -19,10 +22,16 @@ const userResolver = {
   },
   Mutation: {
     async addUser(parent, args, context, info) {
-      const { name, _id } = args;
+      const { name, email } = args;
+      const _id = new ObjectId()
+      const isNameExistAlready = await User.findOne({
+        name
+      }).exec()
+
       const userObj = new User({
-        name,
         _id,
+        name: isNameExistAlready ? name + _id : name,
+        email,
       });
       try {
         const result = await userObj.save();

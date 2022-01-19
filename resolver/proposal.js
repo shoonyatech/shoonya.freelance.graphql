@@ -127,6 +127,7 @@ const proposalResolver = {
         _id: newId,
         proposedRate,
         coverLetter,
+        verdict: "pending",
         proposser: {
           _id: ObjectId(userId),
           name: userDetails?.name,

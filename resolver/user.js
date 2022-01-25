@@ -22,8 +22,7 @@ const userResolver = {
   },
   Mutation: {
     async addUser(parent, args, context, info) {
-      const { name, email } = args;
-      const _id = new ObjectId()
+      const { _id, name, email } = args;
       const isNameExistAlready = await User.findOne({
         name
       }).exec()

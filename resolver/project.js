@@ -1,4 +1,4 @@
-import { Project, User } from "../models.js";
+import { Project, Proposal, User } from "../models.js";
 import mongoose from "mongoose";
 import Server from "apollo-server-express";
 
@@ -30,6 +30,35 @@ const projectResolver = {
       return Project.findById({
         _id,
       });
+    },
+
+    async getProjectsByUserProposals(_, args, context) {
+      const { userId } = context
+      const proposalIds = await User.findOne({
+        _id: userId
+      },
+        {
+          proposals: 1,
+          _id: 0,
+        }
+      )
+      const projectIdsArr = await Proposal.find({
+        _id: {
+          $in: proposalIds.proposals,
+        },
+      },
+        {
+          projectId: 1,
+          _id: 0,
+        }
+      )
+
+      const projectIds = projectIdsArr.map(projectId => projectId.projectId)
+      return await Project.find({
+        _id: {
+          $in: projectIds
+        }
+      })
     },
 
     projects(_, args) {

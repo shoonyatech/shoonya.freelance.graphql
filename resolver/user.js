@@ -1,8 +1,6 @@
 import { User } from "../models.js";
 import mongoose from "mongoose";
 
-const { ObjectId } = mongoose.Types;
-
 const userResolver = {
   Query: {
     user(_, args) {

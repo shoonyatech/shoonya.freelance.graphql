@@ -15,9 +15,8 @@ const QueryAndMutation = `
         getProjectsByUserProposals: [Project]
 
         getProposalsByProject(projectId: ID!): [Proposal]
-        
         getProposals( projectId: ID! ) : [Proposal]
-        getUserProposals( _id: ID! ) : [Proposal]
+        getUserProposals : [Proposal]
         getProposalsById( _id: ID! ) : Proposal
         hasUserAppliedForProject( projectId: ID!): Proposal
     }

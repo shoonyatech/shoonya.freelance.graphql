@@ -5,14 +5,14 @@ import Server from "apollo-server-express";
 
 const proposalResolver = {
   Query: {
-    async getUserProposals(_, args) {
-      const { _id } = args;
+    async getUserProposals(_, args, context) {
+      const { userId } = context
       const proposalIdArray = await User.findOne(
         {
-          _id,
+          _id: userId,
         },
         {
-          "proposals._id": 1,
+          proposals: 1,
           _id: 0,
         }
       );

@@ -105,6 +105,9 @@ const ProjectSchema = new Schema({
   proposals: {
     type: Array,
   },
+  freelancers: {
+    type: Array,
+  }
 });
 
 const User = mongoose.model("User", UserSchema);

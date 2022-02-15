@@ -9,6 +9,7 @@ const QueryAndMutation = `
         countries: [CountryDetails]
 
         getUserProjects(_id: ID! ): [Project]
+        getUserActiveProjects: [Project]
         projects(input: ProjectsInputFilter): [Project]
         project(_id: ID! ): Project
         getProjectOwner(_id: ID!): Project
@@ -34,6 +35,7 @@ const QueryAndMutation = `
         updateUserHobbies  (hobbies : [String] ) : User 
         updateUserSports  (sports : [String] ) : User 
         updateUserCountriesICanWork  (  countriesICanWork : [String] ) : User 
+        hireFreelancer(projectId: ID!) : Project
         
         addProject(title: String, scope: ScopeInput, budget: BudgetInput, skills: [String] ): Project
         deleteProject(_id: ID!) : Project

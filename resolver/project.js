@@ -25,6 +25,38 @@ const projectResolver = {
       });
     },
 
+
+    async getUserActiveProjects(_, args, context) {
+      const { userId } = context
+      const projectArray = await User.findOne(
+        {
+          _id: userId,
+        },
+        {
+          projects: 1,
+          _id: 0,
+        }
+      );
+      return Project.find({
+        $and: [{
+          _id: {
+            $in: projectArray.projects,
+          },
+        },
+        {
+          isPublished: {
+            $eq: true
+          }
+        },
+        {
+          freelancers: {
+            $exists: true, $ne: []
+          }
+        }
+        ]
+      })
+    },
+
     project(_, args) {
       const { _id } = args;
       return Project.findById({
@@ -352,6 +384,23 @@ const projectResolver = {
         );
       }
     },
+
+    hireFreelancer(_, args, context) {
+      const { userId } = context;
+      const { projectId } = args;
+      return Project.updateOne(
+        {
+          _id: projectId
+        },
+        {
+          $push: {
+            freelancers: ObjectId(userId),
+          },
+        }
+      )
+
+    },
+
   },
 };
 

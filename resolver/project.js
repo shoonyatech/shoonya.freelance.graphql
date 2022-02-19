@@ -26,7 +26,7 @@ const projectResolver = {
     },
 
 
-    async getUserActiveProjects(_, args, context) {
+    async getUserCurrentProjects(_, args, context) {
       const { userId } = context
       const projectArray = await User.findOne(
         {
@@ -54,6 +54,38 @@ const projectResolver = {
           }
         }
         ]
+      })
+    },
+
+    async getUserActiveProjects(_, args, context) {
+      const { userId } = context
+      const getUserProposals = await User.find({
+        _id: userId
+      }, {
+        _id: 0,
+        proposals: 1
+      })
+      const getProjectIdsOfAcceptedProposals = await Proposal.find({
+        $and: [{
+          _id: {
+            $in: getUserProposals[0].proposals
+          },
+        },
+        {
+          verdict: {
+            $eq: "hired"
+          }
+        }
+        ]
+      }, {
+        _id: 0,
+        projectId: 1
+      })
+
+      return Project.find({
+        _id: {
+          $in: getProjectIdsOfAcceptedProposals[0].projectId
+        }
       })
     },
 
@@ -385,16 +417,27 @@ const projectResolver = {
       }
     },
 
-    hireFreelancer(_, args, context) {
-      const { userId } = context;
-      const { projectId } = args;
+    async hireFreelancer(_, args, context) {
+      const { projectId, proposalId, freelancerId } = args;
+
+      await Proposal.updateOne(
+        {
+          _id: proposalId
+        },
+        {
+          $set: {
+            verdict: "hired",
+          },
+        }
+      )
+
       return Project.updateOne(
         {
           _id: projectId
         },
         {
           $push: {
-            freelancers: ObjectId(userId),
+            freelancers: ObjectId(freelancerId),
           },
         }
       )

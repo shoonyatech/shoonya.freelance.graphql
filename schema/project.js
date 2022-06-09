@@ -41,11 +41,10 @@ const typeDefs = gql`
     skills: [String]
     fixed: BudgetFilter
     hourly: BudgetFilter
-    owner: ID
   }
 
   input BudgetFilter {
-    checked: Boolean,
+    checked: Boolean
     currency: String
     min: Int
     max: Int
@@ -61,6 +60,5 @@ const typeDefs = gql`
     budget: BudgetInput
   }
 `;
-
 
 export default typeDefs;

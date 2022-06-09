@@ -25,9 +25,8 @@ const projectResolver = {
       });
     },
 
-
     async getUserCurrentProjects(_, args, context) {
-      const { userId } = context
+      const { userId } = context;
       const projectArray = await User.findOne(
         {
           _id: userId,
@@ -38,55 +37,64 @@ const projectResolver = {
         }
       );
       return Project.find({
-        $and: [{
-          _id: {
-            $in: projectArray.projects,
+        $and: [
+          {
+            _id: {
+              $in: projectArray.projects,
+            },
           },
-        },
-        {
-          isPublished: {
-            $eq: true
-          }
-        },
-        {
-          freelancers: {
-            $exists: true, $ne: []
-          }
-        }
-        ]
-      })
+          {
+            isPublished: {
+              $eq: true,
+            },
+          },
+          {
+            freelancers: {
+              $exists: true,
+              $ne: [],
+            },
+          },
+        ],
+      });
     },
 
     async getUserActiveProjects(_, args, context) {
-      const { userId } = context
-      const getUserProposals = await User.find({
-        _id: userId
-      }, {
-        _id: 0,
-        proposals: 1
-      })
-      const getProjectIdsOfAcceptedProposals = await Proposal.find({
-        $and: [{
-          _id: {
-            $in: getUserProposals[0].proposals
-          },
+      const { userId } = context;
+      const getUserProposals = await User.find(
+        {
+          _id: userId,
         },
         {
-          verdict: {
-            $eq: "hired"
-          }
+          _id: 0,
+          proposals: 1,
         }
-        ]
-      }, {
-        _id: 0,
-        projectId: 1
-      })
+      );
+      const getProjectIdsOfAcceptedProposals = await Proposal.find(
+        {
+          $and: [
+            {
+              _id: {
+                $in: getUserProposals[0].proposals,
+              },
+            },
+            {
+              verdict: {
+                $eq: "hired",
+              },
+            },
+          ],
+        },
+        {
+          _id: 0,
+          projectId: 1,
+        }
+      );
 
       return Project.find({
         _id: {
-          $in: getProjectIdsOfAcceptedProposals[0].projectId
-        }
-      })
+          $in: getProjectIdsOfAcceptedProposals[0].projectId,
+        },
+      });
     },
 
     project(_, args) {
@@ -97,122 +105,137 @@ const projectResolver = {
     },
 
     async getProjectsByUserProposals(_, args, context) {
-      const { userId } = context
-      const proposalIds = await User.findOne({
-        _id: userId
-      },
+      const { userId } = context;
+      const proposalIds = await User.findOne(
+        {
+          _id: userId,
+        },
         {
           proposals: 1,
           _id: 0,
         }
-      )
-      const projectIdsArr = await Proposal.find({
-        _id: {
-          $in: proposalIds.proposals,
+      );
+      const projectIdsArr = await Proposal.find(
+        {
+          _id: {
+            $in: proposalIds.proposals,
+          },
         },
-      },
         {
           projectId: 1,
           _id: 0,
         }
-      )
+      );
 
-      const projectIds = projectIdsArr.map(projectId => projectId.projectId)
+      const projectIds = projectIdsArr.map((projectId) => projectId.projectId);
       return await Project.find({
         _id: {
-          $in: projectIds
-        }
-      })
+          $in: projectIds,
+        },
+      });
     },
 
-    projects(_, args) {
+    projects(_, args, context) {
+      const { userId } = context;
       const { input } = args;
-      const { owner, skills, fixed, hourly, title } = input
-      let arr = []
-      if (title)
+      if (!input) return Project.find({});
+
+      let arr = [];
+      if (input.title)
         arr.push({
           $search: {
-            index: 'projects',
+            index: "projects",
             text: {
-              query: title,
-              path: 'title',
+              query: input.title,
+              path: "title",
               fuzzy: {
-                maxEdits: 1
-              }
-            }
-          }
-        })
-      if (owner)
-        arr.push({
-          $match: {
-            owner: {
-              $not: {
-                $eq: ObjectId(owner)
-              }
-            }
-          }
-        })
+                maxEdits: 1,
+              },
+            },
+          },
+        });
 
-      if (fixed.min || fixed.max || hourly.min || hourly.max)
+      arr.push({
+        $match: {
+          owner: {
+            $not: {
+              $eq: ObjectId(userId),
+            },
+          },
+        },
+      });
+
+      if (
+        (input?.fixed || input?.hourly) &&
+        (input?.fixed?.min ||
+          input?.fixed?.max ||
+          input?.hourly?.min ||
+          input?.hourly?.max)
+      )
         arr.push({
           $match: {
             $or: [
               {
-                $and: [{
-                  "budget.amount": {
-                    ...(fixed.checked && fixed.currency && {
-                      ...(fixed.min && { $gt: fixed.min }),
-                      ...(fixed.max && { $lt: fixed.max }),
-                    })
-                  }
-                }, {
-                  "budget.currency": {
-                    $eq: fixed.currency
-                  }
-                },
-                {
-                  "budget.type": { $eq: 'fixed rate' }
-                }],
+                $and: [
+                  {
+                    "budget.amount": {
+                      ...(input?.fixed?.checked &&
+                        input?.fixed?.currency && {
+                          ...(input?.fixed?.min && { $gt: input?.fixed.min }),
+                          ...(input?.fixed?.max && { $lt: input?.fixed.max }),
+                        }),
+                    },
+                  },
+                  {
+                    "budget.currency": {
+                      $eq: input?.fixed?.currency,
+                    },
+                  },
+                  {
+                    "budget.type": { $eq: "fixed rate" },
+                  },
+                ],
               },
 
               {
                 $and: [
                   {
                     "budget.amount": {
-                      ...(hourly.checked && hourly.currency && {
-                        ...(hourly.min && { $gt: hourly.min }),
-                        ...(hourly.max && { $lt: hourly.max }),
-                      })
-                    }
-                  }, {
+                      ...(input?.hourly?.checked &&
+                        input?.hourly?.currency && {
+                          ...(input?.hourly?.min && { $gt: input?.hourly.min }),
+                          ...(input?.hourly?.max && { $lt: input?.hourly.max }),
+                        }),
+                    },
+                  },
+                  {
                     "budget.currency": {
-                      $eq: hourly.currency
-                    }
-                  }, {
-                    "budget.type": { $eq: 'hourly rate' }
-                  }
-                ]
+                      $eq: input?.hourly?.currency,
+                    },
+                  },
+                  {
+                    "budget.type": { $eq: "hourly rate" },
+                  },
+                ],
+              },
+            ],
+          },
+        });
 
-              }
-            ]
-          }
-        })
-
-
-      if (skills?.length)
+      if (input.skills?.length)
         arr.push({
           $match: {
-            skills: { $all: skills }
-          }
-        })
-      // console.log(arr[1].$match.$or[0])
+            skills: { $all: input.skills },
+          },
+        });
+
       if (!arr.length)
         return Project.aggregate([
           {
-            '$match': {}
-          }
-        ])
-      return Project.aggregate(arr)
+            $match: {},
+          },
+        ]);
+      return Project.aggregate(arr);
     },
   },
 
@@ -223,7 +246,7 @@ const projectResolver = {
       // if (!userId) {
       //   throw new Server.AuthenticationError("You must be logged in");
       // }
-      console.log(userId)
+      console.log(userId);
       const newId = new ObjectId();
       const { title, scope, budget, skills } = args;
       await User.updateOne(
@@ -262,7 +285,7 @@ const projectResolver = {
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
-      console.log(userId)
+      console.log(userId);
       const { _id } = args;
       const isProjectOwner = await User.findOne({
         _id: userId,
@@ -293,8 +316,10 @@ const projectResolver = {
     },
 
     async updateProject(_, args, context) {
-      const { project: { _id, title, skills, scope, budget, description } } = args
-      const { userId } = context
+      const {
+        project: { _id, title, skills, scope, budget, description },
+      } = args;
+      const { userId } = context;
       // todo : uncomment this below once auth0 is fixed
       // const isProjectOwner = await Project.findOne({
       //   _id,
@@ -309,13 +334,12 @@ const projectResolver = {
             skills,
             scope,
             budget,
-            description
-          }
+            description,
+          },
         },
         { new: true }
-      )
+      );
     },
-
 
     async updateProjectTitle(_, args, context) {
       const { _id, title } = args;
@@ -422,28 +446,26 @@ const projectResolver = {
 
       await Proposal.updateOne(
         {
-          _id: proposalId
+          _id: proposalId,
         },
         {
           $set: {
             verdict: "hired",
           },
         }
-      )
+      );
 
       return Project.updateOne(
         {
-          _id: projectId
+          _id: projectId,
         },
         {
           $push: {
             freelancers: ObjectId(freelancerId),
           },
         }
-      )
-
+      );
     },
-
   },
 };
 

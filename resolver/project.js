@@ -6,11 +6,11 @@ const { ObjectId } = mongoose.Types;
 
 const projectResolver = {
   Query: {
-    async getUserProjects(_, args) {
-      const { _id } = args;
+    async getUserProjects(_, args, context) {
+      const { userId } = context;
       const projectArray = await User.findOne(
         {
-          _id,
+          _id: userId,
         },
         {
           projects: 1,

@@ -6,8 +6,8 @@ import Server from "apollo-server-express";
 const proposalResolver = {
   Query: {
     async getUserProposals(_, args, context) {
-      const { userId } = context
-      const proposalIdArray = await User.findOne(
+      const { userId } = context;
+      const proposals = await User.findOne(
         {
           _id: userId,
         },
@@ -16,12 +16,9 @@ const proposalResolver = {
           _id: 0,
         }
       );
-      const proposalIdArray2 = proposalIdArray.proposals.map(
-        (proposal) => proposal._id
-      );
       return await Proposal.find({
         _id: {
-          $in: proposalIdArray2,
+          $in: proposals.proposals,
         },
       });
     },
@@ -29,13 +26,10 @@ const proposalResolver = {
     async getProposalsByProject(_, args) {
       // todo : check if only owner is tryign to access this query
       const { projectId } = args;
-      return await Proposal.find(
-        {
-          projectId
-        }
-      );
+      return await Proposal.find({
+        projectId,
+      });
     },
-
 
     async getProjectOwner(_, args) {
       const { _id } = args;
@@ -52,10 +46,10 @@ const proposalResolver = {
 
     async getProposalsById(_, args, context) {
       const { _id } = args;
-      const { userId } = context
+      const { userId } = context;
       const res = await Proposal.findOne({
         _id,
-      }).exec()
+      }).exec();
       // todo : allow the owner of the project to view the proposal
       if (!res.proposser._id.equals(userId))
         throw new Server.ForbiddenError(
@@ -64,7 +58,7 @@ const proposalResolver = {
 
       return await Proposal.findOne({
         _id,
-      })
+      });
     },
 
     async getProposals(_, args) {
@@ -80,15 +74,13 @@ const proposalResolver = {
       // handle error here
     },
     async hasUserAppliedForProject(_, args, context) {
-      const { userId } = context
-      const { projectId } = args
-      return Proposal.findOne(
-        {
-          projectId,
-          "proposser._id": ObjectId(userId)
-        }
-      )
-    }
+      const { userId } = context;
+      const { projectId } = args;
+      return Proposal.findOne({
+        projectId,
+        "proposser._id": ObjectId(userId),
+      });
+    },
   },
 
   Mutation: {
@@ -96,9 +88,14 @@ const proposalResolver = {
       const { userId } = context;
       if (!userId)
         throw new Server.AuthenticationError("You must be logged in");
-      const { coverLetter, proposedRate, projectId, projectTitle, currency, proposser
-      } =
-        args;
+      const {
+        coverLetter,
+        proposedRate,
+        projectId,
+        projectTitle,
+        currency,
+        proposser,
+      } = args;
       const newId = new ObjectId();
 
       await Project.updateOne(
@@ -117,11 +114,10 @@ const proposalResolver = {
         },
         {
           $push: {
-            proposals:
-              newId,
+            proposals: newId,
           },
         }
-      ).exec()
+      ).exec();
 
       const userObj = new Proposal({
         _id: newId,
@@ -133,7 +129,7 @@ const proposalResolver = {
           name: userDetails?.name,
           skills: userDetails?.skills,
           picture: userDetails?.picture,
-          location: userDetails?.contact?.location
+          location: userDetails?.contact?.location,
         },
         projectId,
         projectTitle,
@@ -177,38 +173,36 @@ const proposalResolver = {
 
       await Project.updateOne(
         {
-          _id: projectId
+          _id: projectId,
         },
         {
           $pull: {
-            proposals: ObjectId(_id)
-          }
+            proposals: ObjectId(_id),
+          },
         }
-      )
+      );
       await Proposal.deleteOne({
         _id,
       });
     },
-
 
     async updateProposal(_, args, context) {
       const { userId } = context;
       if (!userId) {
         throw new Server.AuthenticationError("You must be logged in");
       }
-      const { _id, coverLetter, proposedRate } = args
+      const { _id, coverLetter, proposedRate } = args;
       return Proposal.findOneAndUpdate(
         { _id },
         {
           $set: {
             coverLetter,
-            proposedRate
-          }
+            proposedRate,
+          },
         },
         { new: true }
-      )
-    }
-
+      );
+    },
   },
 };
 

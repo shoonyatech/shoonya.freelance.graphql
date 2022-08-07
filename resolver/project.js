@@ -6,11 +6,11 @@ const { ObjectId } = mongoose.Types;
 
 const projectResolver = {
   Query: {
-    async getUserProjects(_, args) {
-      const { _id } = args;
+    async getUserProjects(_, args, context) {
+      const { userId } = context;
       const projectArray = await User.findOne(
         {
-          _id,
+          _id: userId,
         },
         {
           projects: 1,
@@ -60,7 +60,7 @@ const projectResolver = {
 
     async getUserActiveProjects(_, args, context) {
       const { userId } = context;
-      const getUserProposals = await User.find(
+      const getUserProposals = await User.findOne(
         {
           _id: userId,
         },
@@ -69,12 +69,13 @@ const projectResolver = {
           proposals: 1,
         }
       );
+      if (!getUserProposals.proposals.length) return [];
       const getProjectIdsOfAcceptedProposals = await Proposal.find(
         {
           $and: [
             {
               _id: {
-                $in: getUserProposals[0].proposals,
+                $in: getUserProposals.proposals,
               },
             },
             {
@@ -89,10 +90,13 @@ const projectResolver = {
           projectId: 1,
         }
       );
+      const projectIds = getProjectIdsOfAcceptedProposals.map(
+        (proposal) => proposal.projectId
+      );
 
-      return Project.find({
+      return await Project.find({
         _id: {
-          $in: getProjectIdsOfAcceptedProposals[0].projectId,
+          $in: projectIds,
         },
       });
     },
